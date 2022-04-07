@@ -120,6 +120,7 @@ class App extends Component {
                         }}
                     >
                         {imgs.map((src) => {
+                            // eslint-disable-next-line jsx-a11y/alt-text
                             return <img key={src} src={src} width="100%" height="100%" />;
                         })}
                     </div>
