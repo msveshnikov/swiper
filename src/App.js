@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import "./app.css";
+import "./App.css";
 
 const IMG_WIDTH = 700;
 const IMG_HEIGHT = 400;
