@@ -18,9 +18,9 @@ function App() {
     return (
         <div>
             <div className="cardContainer">
-                {db.map((character) => (
+                {db.map((image) => (
                     <TinderCard className="swipe">
-                        <div style={{ backgroundImage: "url(" + character + ")" }} className="card"></div>
+                        <div style={{ backgroundImage: "url(" + image + ")" }} className="card"></div>
                     </TinderCard>
                 ))}
             </div>
