@@ -1,10 +1,10 @@
 {
-    "name": "max-swiper",
+    "name": "photo-swiper",
     "version": "1.0",
     "private": true,
     "dependencies": {
-        "react": "17.0.0",
-        "react-dom": "17.0.0",
+        "react": "17.0.2",
+        "react-dom": "17.0.2",
         "react-scripts": "5.0.0",
         "react-tinder-card": "1.4.5"
     },
