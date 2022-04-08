@@ -7,12 +7,12 @@ import { useReward } from "react-rewards";
 import { useDoubleTap } from "use-double-tap";
 
 function App() {
-    const images = Array.from(new Map(Object.entries(splash.data)).values());
+    const images = Array.from(new Map(Object.entries(splash.data)).values()).filter((image) => image?.createdAt?.value);
     const [margin, setMargin] = useState(10);
-    const { reward } = useReward("rewardId", "emoji");
+    const { reward } = useReward("rewardId", "emoji", { zIndex: 100 });
 
     const onSwipe = () => {
-        setMargin(margin + 1);
+        setMargin((prev) => prev + 1);
     };
 
     const bind = useDoubleTap((event) => {
@@ -22,11 +22,19 @@ function App() {
     return (
         <div>
             <div className="cardContainer">
-                {images.slice(0, margin).map((image, no) => (
-                    <TinderCard id="rewardId" {...bind} onSwipe={onSwipe} key={no} className="swipe">
-                        <div style={{ backgroundImage: "url(" + image.photoUrl + ")" }} className="card"></div>
-                    </TinderCard>
-                ))}
+                {images
+                    .slice(margin - 10, margin)
+                    .reverse()
+                    .map((image) => (
+                        <TinderCard onSwipe={onSwipe} key={image?.createdAt?.value} className="swipe">
+                            <div
+                                {...bind}
+                                style={{ backgroundImage: "url(" + image.photoUrl + ")" }}
+                                className="card"
+                            ></div>
+                            <span id="rewardId" />
+                        </TinderCard>
+                    ))}
             </div>
         </div>
     );
