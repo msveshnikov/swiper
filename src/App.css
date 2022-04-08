@@ -46,7 +46,7 @@
     width: 90vw;
     max-width: 300px;
     height: 700px;
-    box-shadow: 0px 0px 60px 0px rgba(0, 0, 0, 0.01);
+    box-shadow: 0px 0px 60px 0px rgba(0, 0, 0, 0.1);
     border-radius: 20px;
     background-size: cover;
     background-position: center;
