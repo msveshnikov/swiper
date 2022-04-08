@@ -2,19 +2,25 @@ import React, { Component } from "react";
 
 import "./App.css";
 
-const IMG_WIDTH = 700;
-const IMG_HEIGHT = 400;
+const IMG_WIDTH = 400;
+const IMG_HEIGHT = 700;
 
 class App extends Component {
     wheelTimeout;
     transitionTimeout;
     lastTouch = 0;
     state = {
-        imgs: ["/img1.jpg", "/img2.jpg", "/img3.jpg", "/img4.jpg"],
+        imgs: [
+            "https://images.unsplash.com/photo-1599832110430-da30b996c917?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max",
+            "https://images.unsplash.com/photo-1600804889194-e6fbf08ddb39?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max",
+            "https://images.unsplash.com/photo-1616891170504-77c9805e3357?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max",
+            "https://images.unsplash.com/photo-1591592744991-4c43b3367b30?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max",
+        ],
         currentIndex: 0,
         movement: 0,
         transitionDuration: "0s",
     };
+
     componentWillUnmount = () => {
         clearTimeout(this.transitionTimeout);
     };
@@ -22,21 +28,25 @@ class App extends Component {
     handleTouchStart = (e) => {
         this.lastTouch = e.nativeEvent.touches[0].clientX;
     };
+
     handleTouchMove = (e) => {
         const delta = this.lastTouch - e.nativeEvent.touches[0].clientX;
         this.lastTouch = e.nativeEvent.touches[0].clientX;
 
         this.handleMovement(delta);
     };
+
     handleTouchEnd = () => {
         this.handleMovementEnd();
         this.lastTouch = 0;
     };
+
     handleWheel = (e) => {
         clearTimeout(this.wheelTimeout);
         this.handleMovement(e.deltaX);
         this.wheelTimeout = setTimeout(() => this.handleMovementEnd(), 100);
     };
+
     handleMovement = (delta) => {
         clearTimeout(this.transitionTimeout);
 
@@ -83,6 +93,7 @@ class App extends Component {
 
         this.transitionTo(nextIndex, Math.min(0.5, 1 - Math.abs(endPartial)));
     };
+
     transitionTo = (index, duration) => {
         this.setState({
             currentIndex: index,
@@ -94,6 +105,7 @@ class App extends Component {
             this.setState({ transitionDuration: "0s" });
         }, duration * 100);
     };
+
     render() {
         const { currentIndex, movement, transitionDuration, imgs } = this.state;
         const maxLength = imgs.length - 1;
