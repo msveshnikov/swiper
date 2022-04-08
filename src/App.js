@@ -1,7 +1,7 @@
 import React from "react";
 import TinderCard from "react-tinder-card";
-import "./App.css";
 import splash from "./splash.json";
+import "./App.css";
 
 function App() {
     const map = new Map(Object.entries(splash.data));
