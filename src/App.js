@@ -1,10 +1,9 @@
 import React from "react";
 import { useState } from "react";
 import TinderCard from "react-tinder-card";
+import { useReward } from "react-rewards";
 import splash from "./splash.json";
 import "./App.css";
-import { useReward } from "react-rewards";
-import { useDoubleTap } from "use-double-tap";
 
 function App() {
     const images = Array.from(new Map(Object.entries(splash.data)).values()).filter((image) => image?.createdAt?.value);
@@ -15,9 +14,15 @@ function App() {
         setMargin((prev) => prev + 1);
     };
 
-    const bind = useDoubleTap((event) => {
+    const onDoubleClick = (e) => {
         reward();
-    });
+    };
+
+    const onClick = (e) => {
+        if (e.detail === 2) {
+            reward();
+        }
+    };
 
     return (
         <div>
@@ -28,7 +33,8 @@ function App() {
                     .map((image) => (
                         <TinderCard onSwipe={onSwipe} key={image?.createdAt?.value} className="swipe">
                             <div
-                                {...bind}
+                                onDoubleClick={onDoubleClick}
+                                onClick={onClick}
                                 style={{ backgroundImage: "url(" + image.photoUrl + ")" }}
                                 className="card"
                             ></div>
