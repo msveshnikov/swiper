@@ -26,10 +26,6 @@
     flex-direction: row !important;
 }
 
-.row > * {
-    margin: 5px;
-}
-
 .swipe {
     position: absolute;
 }
