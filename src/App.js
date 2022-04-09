@@ -12,7 +12,7 @@ const images = _.shuffle(
 );
 
 function App() {
-    const preload = 5; /* The number of images to be displayed. */
+    const preload = 5; 
     const [margin, setMargin] = useState(preload);
     const { reward } = useReward("rewardId", "emoji", { zIndex: 100 });
 
@@ -20,10 +20,9 @@ function App() {
         setMargin((prev) => prev + 1);
     };
 
-    /* A hook that allows you to double tap on the image to trigger the reward. */
     const bind = useDoubleTap(() => {
         reward();
-    }, 500);
+    });
 
     return (
         <div>
@@ -32,12 +31,8 @@ function App() {
                     .slice(margin - preload, margin)
                     .reverse()
                     .map((image) => (
-                        <TinderCard {...bind} onSwipe={onSwipe} key={image?.createdAt?.value} className="swipe">
-                            <div
-                                {...bind}
-                                style={{ backgroundImage: "url(" + image.photoUrl + ")" }}
-                                className="card"
-                            ></div>
+                        <TinderCard onSwipe={onSwipe} key={image?.createdAt?.value} className="swipe">
+                            <div {...bind} style={{ backgroundImage: "url(" + image.photoUrl + ")" }} className="card"></div>
                             <span id="rewardId" />
                         </TinderCard>
                     ))}
