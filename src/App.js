@@ -4,9 +4,13 @@ import TinderCard from "react-tinder-card";
 import { useReward } from "react-rewards";
 import splash from "./splash.json";
 import "./App.css";
+import _ from "underscore";
+
+const images = _.shuffle(
+    Array.from(new Map(Object.entries(splash.data)).values()).filter((image) => image?.createdAt?.value)
+);
 
 function App() {
-    const images = Array.from(new Map(Object.entries(splash.data)).values()).filter((image) => image?.createdAt?.value);
     const [margin, setMargin] = useState(10);
     const { reward } = useReward("rewardId", "emoji", { zIndex: 100 });
 
