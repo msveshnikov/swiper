@@ -1,18 +1,12 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import TinderCard from "react-tinder-card";
-import splash from "./splash.json";
 import { useReward } from "react-rewards";
-import _ from "underscore";
 import "./App.css";
 import { makeStyles } from "@material-ui/core/styles";
 import IconButton from "@material-ui/core/IconButton";
-import clsx from "clsx";
 import FavoriteIcon from "@material-ui/icons/Favorite";
-
-const images = _.shuffle(
-    Array.from(new Map(Object.entries(splash.data)).values()).filter((image) => image?.createdAt?.value)
-);
+import clsx from "clsx";
 
 const useStyles = makeStyles(() => ({
     icon: {
@@ -27,10 +21,11 @@ const useStyles = makeStyles(() => ({
 }));
 
 function App() {
-    const classes = useStyles();
     const preload = 3;
+    const classes = useStyles();
     const [margin, setMargin] = useState(preload);
     const [liked, setLiked] = React.useState(null);
+    const [images, setImages] = useState([]);
     const { reward } = useReward("rewardId", "emoji", { zIndex: 1000 });
 
     const onSwipe = () => {
@@ -45,6 +40,20 @@ function App() {
         }
     };
 
+    useEffect(() => {
+        for (var i = 0; i < preload; i++) {
+            fetch(`https://source.unsplash.com/random/500x1200?sig=${i}`).then((res) =>
+                setImages((old) => [...old, res.url])
+            );
+        }
+    }, []);
+
+    useEffect(() => {
+        fetch(`https://source.unsplash.com/random/500x1200?sig=${margin}`).then((res) =>
+            setImages((old) => [...old, res.url])
+        );
+    }, [margin]);
+
     return (
         <div>
             <div className="cardContainer">
@@ -52,8 +61,8 @@ function App() {
                     .slice(margin - preload, margin)
                     .reverse()
                     .map((image) => (
-                        <TinderCard onSwipe={onSwipe} key={image?.createdAt?.value} className="swipe">
-                            <div style={{ backgroundImage: "url(" + image.photoUrl + ")" }} className="card">
+                        <TinderCard onSwipe={onSwipe} key={image} className="swipe">
+                            <div style={{ backgroundImage: "url(" + image + ")" }} className="card">
                                 <IconButton
                                     id="rewardId"
                                     className={clsx(classes.icon, liked && classes.liked)}
