@@ -8,13 +8,13 @@ import "./App.css";
 import { makeStyles } from "@material-ui/core/styles";
 import IconButton from "@material-ui/core/IconButton";
 import clsx from "clsx";
-import ThumbUpIcon from "@material-ui/icons/ThumbUp";
+import FavoriteIcon from "@material-ui/icons/Favorite";
 
 const images = _.shuffle(
     Array.from(new Map(Object.entries(splash.data)).values()).filter((image) => image?.createdAt?.value)
 );
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
     icon: {
         position: "absolute",
         bottom: 0,
@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
         color: "gray",
     },
     liked: {
-        color: "yellow",
+        color: "red",
     },
 }));
 
@@ -31,7 +31,7 @@ function App() {
     const preload = 3;
     const [margin, setMargin] = useState(preload);
     const [liked, setLiked] = React.useState(null);
-    const { reward } = useReward("rewardId", "emoji", { zIndex: 100 });
+    const { reward } = useReward("rewardId", "emoji", { zIndex: 1000 });
 
     const onSwipe = () => {
         setLiked(false);
@@ -57,10 +57,10 @@ function App() {
                                 <IconButton
                                     id="rewardId"
                                     className={clsx(classes.icon, liked && classes.liked)}
-                                    onTouchStart={handleLikeClick}
+                                    onTouchEnd={handleLikeClick}
                                     onClick={handleLikeClick}
                                 >
-                                    <ThumbUpIcon />
+                                    <FavoriteIcon />
                                 </IconButton>
                             </div>
                         </TinderCard>
