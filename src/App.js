@@ -20,7 +20,6 @@ const useStyles = makeStyles((theme) => ({
         bottom: 0,
         right: 0,
         color: "gray",
-        zIndex: 100,
     },
     liked: {
         color: "yellow",
@@ -59,6 +58,7 @@ function App() {
                                     id="rewardId"
                                     className={clsx(classes.icon, liked && classes.liked)}
                                     onTouchStart={handleLikeClick}
+                                    onClick={handleLikeClick}
                                 >
                                     <ThumbUpIcon />
                                 </IconButton>
