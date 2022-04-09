@@ -12,7 +12,7 @@ const images = _.shuffle(
 );
 
 function App() {
-    const preload = 5; 
+    const preload = 3; 
     const [margin, setMargin] = useState(preload);
     const { reward } = useReward("rewardId", "emoji", { zIndex: 100 });
 
