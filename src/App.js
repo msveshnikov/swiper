@@ -3,7 +3,6 @@ import { useState } from "react";
 import TinderCard from "react-tinder-card";
 import splash from "./splash.json";
 import { useReward } from "react-rewards";
-import { useDoubleTap } from "use-double-tap";
 import _ from "underscore";
 import "./App.css";
 import { makeStyles } from "@material-ui/core/styles";
@@ -21,6 +20,7 @@ const useStyles = makeStyles((theme) => ({
         bottom: 0,
         right: 0,
         color: "gray",
+        zIndex: 100,
     },
     liked: {
         color: "yellow",
@@ -46,11 +46,6 @@ function App() {
         }
     };
 
-    const bind = useDoubleTap(() => {
-        setLiked(true);
-        reward();
-    });
-
     return (
         <div>
             <div className="cardContainer">
@@ -59,17 +54,15 @@ function App() {
                     .reverse()
                     .map((image) => (
                         <TinderCard onSwipe={onSwipe} key={image?.createdAt?.value} className="swipe">
-                            <div
-                                {...bind}
-                                style={{ backgroundImage: "url(" + image.photoUrl + ")" }}
-                                className="card"
-                            ></div>
-                            <IconButton id="rewardId" 
-                                className={clsx(classes.icon, liked && classes.liked)}
-                                onClick={handleLikeClick}
-                            >
-                                <ThumbUpIcon />
-                            </IconButton>
+                            <div style={{ backgroundImage: "url(" + image.photoUrl + ")" }} className="card">
+                                <IconButton
+                                    id="rewardId"
+                                    className={clsx(classes.icon, liked && classes.liked)}
+                                    onTouchStart={handleLikeClick}
+                                >
+                                    <ThumbUpIcon />
+                                </IconButton>
+                            </div>
                         </TinderCard>
                     ))}
             </div>
