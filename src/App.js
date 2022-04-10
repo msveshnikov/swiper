@@ -15,7 +15,13 @@ function App() {
 
     const fetchImage = (i) => {
         fetch(`https://source.unsplash.com/random/900x2000?sig=${i}`).then((res) =>
-            setImages((old) => [...old, res.url])
+            setImages((old) => {
+                if (old.includes(res.url)) {
+                    console.log("duplicate");
+                    setMargin((prev) => prev + 1);
+                }
+                return [...old, res.url];
+            })
         );
     };
 
@@ -32,8 +38,8 @@ function App() {
     return (
         <div>
             <div className="cardContainer">
-                {images
-                    .slice(margin - preload, margin)
+                {[...new Set(images)]
+                    .slice(-preload)
                     .reverse()
                     .map((image) => (
                         <TinderCard onSwipe={onSwipe} key={image} className="swipe">
