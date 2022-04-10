@@ -33,6 +33,7 @@ const Heart = () => {
     return (
         <IconButton
             id="rewardId"
+            aria-label="Like button"
             className={clsx(classes.icon, liked && classes.liked)}
             onTouchEnd={handleLikeClick}
             onClick={handleLikeClick}
