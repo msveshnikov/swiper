@@ -1,8 +1,8 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import TinderCard from "react-tinder-card";
-import "./App.css";
 import Heart from "./Heart";
+import "./App.css";
 
 function App() {
     const preload = 5;
@@ -17,7 +17,6 @@ function App() {
         fetch(`https://source.unsplash.com/random/900x2000?sig=${i}`).then((res) =>
             setImages((old) => {
                 if (old.includes(res.url)) {
-                    console.log("duplicate");
                     setMargin((prev) => prev + 1);
                 }
                 return [...old, res.url];
@@ -26,7 +25,7 @@ function App() {
     };
 
     useEffect(() => {
-        for (var i = 0; i < preload-1; i++) {
+        for (var i = 0; i < preload - 1; i++) {
             fetchImage(i);
         }
     }, []);
