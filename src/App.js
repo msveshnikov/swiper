@@ -26,7 +26,7 @@ function App() {
     };
 
     useEffect(() => {
-        for (var i = 0; i < preload; i++) {
+        for (var i = 0; i < preload-1; i++) {
             fetchImage(i);
         }
     }, []);
