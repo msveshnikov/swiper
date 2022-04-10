@@ -13,18 +13,20 @@ function App() {
         setMargin((prev) => prev + 1);
     };
 
+    const fetchImage = (i) => {
+        fetch(`https://source.unsplash.com/random/900x2000?sig=${i}`).then((res) =>
+            setImages((old) => [...old, res.url])
+        );
+    };
+
     useEffect(() => {
         for (var i = 0; i < preload; i++) {
-            fetch(`https://source.unsplash.com/random/900x2000?sig=${i}`).then((res) =>
-                setImages((old) => [...old, res.url])
-            );
+            fetchImage(i);
         }
     }, []);
 
     useEffect(() => {
-        fetch(`https://source.unsplash.com/random/900x2000?sig=${margin}`).then((res) =>
-            setImages((old) => [...old, res.url])
-        );
+        fetchImage(margin);
     }, [margin]);
 
     return (
