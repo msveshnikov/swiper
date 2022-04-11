@@ -3,11 +3,14 @@ import { useState, useEffect } from "react";
 import TinderCard from "react-tinder-card";
 import Heart from "./Heart";
 import "./App.css";
+import isDblTouchTap from "./isDblTouchTap";
+import { useReward } from "react-rewards";
 
 function App() {
     const preload = 5;
     const [margin, setMargin] = useState(preload);
     const [images, setImages] = useState([]);
+    const { reward } = useReward("rewardId", "emoji", { zIndex: 10 });
 
     const onSwipe = () => {
         setMargin((prev) => prev + 1);
@@ -22,6 +25,12 @@ function App() {
                 return [...old, res.url];
             })
         );
+    };
+
+    const onTap = (e) => {
+        if (isDblTouchTap(e)) {
+            reward();
+        }
     };
 
     useEffect(() => {
@@ -42,7 +51,7 @@ function App() {
                     .reverse()
                     .map((image) => (
                         <TinderCard onSwipe={onSwipe} key={image} className="swipe">
-                            <div style={{ backgroundImage: "url(" + image + ")" }} className="card">
+                            <div onTouchEnd={onTap} style={{ backgroundImage: "url(" + image + ")" }} className="card">
                                 <Heart />
                             </div>
                         </TinderCard>
