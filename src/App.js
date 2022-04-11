@@ -3,11 +3,12 @@ import { useState, useEffect } from "react";
 import TinderCard from "react-tinder-card";
 import Heart from "./Heart";
 import "./App.css";
-import isDblTouchTap from "./isDblTouchTap";
+import isDoubleTap from "./isDoubleTap";
 import { useReward } from "react-rewards";
 
 function App() {
     const preload = 5;
+
     const [margin, setMargin] = useState(preload);
     const [images, setImages] = useState([]);
     const { reward } = useReward("rewardId", "emoji", { zIndex: 10 });
@@ -30,7 +31,7 @@ function App() {
     };
 
     const onTap = (e) => {
-        if (isDblTouchTap(e) && !liked) {
+        if (isDoubleTap(e) && !liked) {
             setLiked(true);
             reward();
         }
