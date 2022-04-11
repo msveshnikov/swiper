@@ -18,10 +18,10 @@ const useStyles = makeStyles(() => ({
     },
 }));
 
-const Heart = () => {
+const Heart = ({liked, setLiked, reward}) => {
     const classes = useStyles();
-    const [liked, setLiked] = useState(false);
-    const { reward } = useReward("rewardId", "emoji", { zIndex: 10 });
+
+    // const { reward } = useReward("rewardId", "emoji", { zIndex: 10 });
 
     const handleLikeClick = () => {
         if (!liked) {

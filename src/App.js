@@ -11,9 +11,11 @@ function App() {
     const [margin, setMargin] = useState(preload);
     const [images, setImages] = useState([]);
     const { reward } = useReward("rewardId", "emoji", { zIndex: 10 });
+    const [liked, setLiked] = useState(false);
 
     const onSwipe = () => {
         setMargin((prev) => prev + 1);
+        setLiked(false);
     };
 
     const fetchImage = (i) => {
@@ -28,7 +30,8 @@ function App() {
     };
 
     const onTap = (e) => {
-        if (isDblTouchTap(e)) {
+        if (isDblTouchTap(e) && !liked) {
+            setLiked(true);
             reward();
         }
     };
@@ -52,7 +55,7 @@ function App() {
                     .map((image) => (
                         <TinderCard onSwipe={onSwipe} key={image} className="swipe">
                             <div onTouchEnd={onTap} style={{ backgroundImage: "url(" + image + ")" }} className="card">
-                                <Heart />
+                                <Heart liked={liked} setLiked={setLiked} reward={reward} />
                             </div>
                         </TinderCard>
                     ))}
