@@ -58,7 +58,7 @@ function App() {
                         <TinderCard onSwipe={onSwipe} key={image} className="swipe">
                             <div onTouchEnd={onTap} style={{ backgroundImage: "url(" + image + ")" }} className="card">
                                 <Heart liked={liked} setLiked={setLiked} reward={reward} />
-                                <Save url={image.split('?')[0] } />
+                                <Save url={image.split("?")[0]} />
                             </div>
                         </TinderCard>
                     ))}
