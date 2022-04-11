@@ -3,14 +3,20 @@ import { useState, useEffect } from "react";
 import TinderCard from "react-tinder-card";
 import Heart from "./Heart";
 import "./App.css";
+import isDoubleTap from "./isDoubleTap";
+import { useReward } from "react-rewards";
 
 function App() {
     const preload = 5;
+
     const [margin, setMargin] = useState(preload);
     const [images, setImages] = useState([]);
+    const { reward } = useReward("rewardId", "emoji", { zIndex: 10 });
+    const [liked, setLiked] = useState(false);
 
     const onSwipe = () => {
         setMargin((prev) => prev + 1);
+        setLiked(false);
     };
 
     const fetchImage = (i) => {
@@ -22,6 +28,13 @@ function App() {
                 return [...old, res.url];
             })
         );
+    };
+
+    const onTap = (e) => {
+        if (isDoubleTap(e) && !liked) {
+            setLiked(true);
+            reward();
+        }
     };
 
     useEffect(() => {
@@ -42,8 +55,8 @@ function App() {
                     .reverse()
                     .map((image) => (
                         <TinderCard onSwipe={onSwipe} key={image} className="swipe">
-                            <div style={{ backgroundImage: "url(" + image + ")" }} className="card">
-                                <Heart />
+                            <div onTouchEnd={onTap} style={{ backgroundImage: "url(" + image + ")" }} className="card">
+                                <Heart liked={liked} setLiked={setLiked} reward={reward} />
                             </div>
                         </TinderCard>
                     ))}
