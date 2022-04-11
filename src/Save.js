@@ -16,6 +16,7 @@ const useStyles = makeStyles((theme) => ({
         bottom: 0,
         left: 0,
         alignItems: "center",
+        opacity: 0.6,
     },
     wrapper: {
         margin: theme.spacing(1),
@@ -66,7 +67,7 @@ const Save = ({ url }) => {
             <div className={classes.wrapper}>
                 <Fab
                     aria-label="Save button"
-                    // color="secondary"
+                    // color="primary"
                     className={buttonClassname}
                     onTouchEnd={handleSaveClick}
                     onClick={handleSaveClick}
