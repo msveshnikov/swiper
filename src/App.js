@@ -7,7 +7,7 @@ import "./App.css";
 import isDoubleTap from "./isDoubleTap";
 import { useReward } from "react-rewards";
 
-function App() {
+const App = () => {
     const preload = 5;
 
     const [margin, setMargin] = useState(preload);
@@ -66,6 +66,6 @@ function App() {
             </div>
         </div>
     );
-}
+};
 
 export default App;
