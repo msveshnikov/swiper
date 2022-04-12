@@ -57,7 +57,7 @@ const Save = ({ url }) => {
                 .then((res) => {
                     setSuccess(true);
                     setLoading(false);
-                    fileDownload(res.data, "Swiper.jpg");
+                    fileDownload(res.data, `Swiper-${new Date().toISOString()}.jpeg`,"image/jpeg");
                 });
         }
     };
@@ -67,7 +67,6 @@ const Save = ({ url }) => {
             <div className={classes.wrapper}>
                 <Fab
                     aria-label="Save button"
-                    // color="primary"
                     className={buttonClassname}
                     onTouchEnd={handleSaveClick}
                     onClick={handleSaveClick}
