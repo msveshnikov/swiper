@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import TinderCard from "react-tinder-card";
 import Heart from "./Heart";
+import Save from "./Save";
 import "./App.css";
 import isDoubleTap from "./isDoubleTap";
 import { useReward } from "react-rewards";
@@ -24,6 +25,7 @@ function App() {
             setImages((old) => {
                 if (old.includes(res.url)) {
                     setMargin((prev) => prev + 1);
+                    return old;
                 }
                 return [...old, res.url];
             })
@@ -57,6 +59,7 @@ function App() {
                         <TinderCard onSwipe={onSwipe} key={image} className="swipe">
                             <div onTouchEnd={onTap} style={{ backgroundImage: "url(" + image + ")" }} className="card">
                                 <Heart liked={liked} setLiked={setLiked} reward={reward} />
+                                <Save url={image.split("?")[0]} />
                             </div>
                         </TinderCard>
                     ))}
