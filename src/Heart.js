@@ -4,12 +4,13 @@ import IconButton from "@material-ui/core/IconButton";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import clsx from "clsx";
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
     icon: {
         position: "absolute",
         bottom: 0,
         right: 0,
         color: "gray",
+        margin: theme.spacing(1),
     },
     liked: {
         color: "red",
