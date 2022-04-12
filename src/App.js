@@ -25,6 +25,7 @@ function App() {
             setImages((old) => {
                 if (old.includes(res.url)) {
                     setMargin((prev) => prev + 1);
+                    return old;
                 }
                 return [...old, res.url];
             })
