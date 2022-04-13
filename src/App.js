@@ -10,13 +10,13 @@ import { useReward } from "react-rewards";
 const App = () => {
     const preload = 5;
 
-    const [margin, setMargin] = useState(preload);
+    const [count, setCount] = useState(0);
     const [images, setImages] = useState([]);
     const { reward } = useReward("rewardId", "emoji", { zIndex: 10, lifetime: 70, startVelocity:55, decay: 0.95 });
     const [liked, setLiked] = useState(false);
 
     const onSwipe = () => {
-        setMargin((prev) => prev + 1);
+        setCount((prev) => prev + 1);
         setLiked(false);
     };
 
@@ -24,7 +24,7 @@ const App = () => {
         fetch(`https://source.unsplash.com/random/900x2000?sig=${i}`).then((res) =>
             setImages((old) => {
                 if (old.includes(res.url)) {
-                    setMargin((prev) => prev + 1);
+                    setCount((prev) => prev + 1);
                     return old;
                 }
                 return [...old, res.url];
@@ -46,8 +46,8 @@ const App = () => {
     }, []);
 
     useEffect(() => {
-        fetchImage(margin);
-    }, [margin]);
+        fetchImage(count);
+    }, [count]);
 
     return (
         <div>
