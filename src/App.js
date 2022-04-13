@@ -12,7 +12,7 @@ const App = () => {
 
     const [count, setCount] = useState(0);
     const [images, setImages] = useState([]);
-    const { reward } = useReward("rewardId", "emoji", { zIndex: 10, lifetime: 70, startVelocity:55, decay: 0.95 });
+    const { reward } = useReward("rewardId", "emoji", { zIndex: 10, lifetime: 70, startVelocity: 55, decay: 0.95 });
     const [liked, setLiked] = useState(false);
 
     const onSwipe = () => {
@@ -27,7 +27,7 @@ const App = () => {
                     setCount((prev) => prev + 1);
                     return old;
                 }
-                return [...old, res.url];
+                return [res.url, ...old];
             })
         );
     };
@@ -53,8 +53,7 @@ const App = () => {
         <div>
             <div className="cardContainer">
                 {images
-                    .slice(-preload)
-                    .reverse()
+                    // .slice(0, preload)
                     .map((image) => (
                         <TinderCard onSwipe={onSwipe} key={image} className="swipe">
                             <div onTouchEnd={onTap} style={{ backgroundImage: "url(" + image + ")" }} className="card">
