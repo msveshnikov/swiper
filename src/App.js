@@ -52,7 +52,7 @@ const App = () => {
     return (
         <div>
             <div className="cardContainer">
-                {[...new Set(images)]
+                {images
                     .slice(-preload)
                     .reverse()
                     .map((image) => (
