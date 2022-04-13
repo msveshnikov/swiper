@@ -1,9 +1,9 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import SaveIcon from "@material-ui/icons/Save";
-import axios from "axios";
 import fileDownload from "js-file-download";
+import axios from "axios";
 import clsx from "clsx";
+import SaveIcon from "@material-ui/icons/Save";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { green } from "@material-ui/core/colors";
 import Fab from "@material-ui/core/Fab";
@@ -24,10 +24,10 @@ const useStyles = makeStyles((theme) => ({
     },
     buttonSuccess: {
         backgroundColor: green[500],
-        '&:hover': {
-          backgroundColor: green[700],
+        "&:hover": {
+            backgroundColor: green[700],
         },
-      },
+    },
     fabProgress: {
         color: green[500],
         position: "absolute",
@@ -57,7 +57,7 @@ const Save = ({ url }) => {
                 .then((res) => {
                     setSuccess(true);
                     setLoading(false);
-                    fileDownload(res.data, `Swiper-${new Date().toISOString()}.jpeg`,"image/jpeg");
+                    fileDownload(res.data, `Swiper-${new Date().toISOString()}.jpeg`, "image/jpeg");
                 });
         }
     };
