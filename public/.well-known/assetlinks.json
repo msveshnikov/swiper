@@ -1,0 +1,6 @@
+[{
+        "relation": ["delegate_permission/common.handle_all_urls"],
+        "target" : { "namespace": "android_app", "package_name": "ml.swiper.twa",
+                     "sha256_cert_fingerprints": ["22:30:1A:14:01:BE:85:42:9D:19:B6:58:94:10:D5:8E:E9:6F:7B:37:10:F0:56:6B:DF:67:06:12:B3:C3:E4:9D"] }
+      }
+]
