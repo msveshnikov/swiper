@@ -53,7 +53,6 @@ const App = () => {
         <div>
             <div className="cardContainer">
                 {images
-                    // .slice(0, preload)
                     .map((image) => (
                         <TinderCard onSwipe={onSwipe} key={image} className="swipe">
                             <div onTouchEnd={onTap} style={{ backgroundImage: "url(" + image + ")" }} className="card">
