@@ -14,7 +14,7 @@ const App = () => {
     const { reward } = useReward("rewardId", "emoji", { zIndex: 10, lifetime: 70, startVelocity: 55, decay: 0.95 });
 
     const onSwipe = () => {
-        setCount((prev) => prev + 1);
+        setCount((old) => old + 1);
         setLiked(false);
     };
 
@@ -22,7 +22,7 @@ const App = () => {
         fetch(`https://source.unsplash.com/random/900x2000?sig=${i}`).then((res) =>
             setImages((old) => {
                 if (old.includes(res.url)) {
-                    setCount((prev) => prev + 1);
+                    setCount((old) => old + 1);
                     return old;
                 }
                 return [res.url, ...old];
