@@ -1,7 +1,7 @@
 # swiper
 
 Photo sliding app.
-Just swipe to next photo, or tap heart to like :)
+Just swipe to next photo, or double tap to like :)
 
 Demo:
-https://swipe.maxsoft.tk/
+https://swiper.ml/
