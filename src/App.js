@@ -8,12 +8,10 @@ import isDoubleTap from "./isDoubleTap";
 import { useReward } from "react-rewards";
 
 const App = () => {
-    const preload = 5;
-
     const [count, setCount] = useState(0);
     const [images, setImages] = useState([]);
-    const { reward } = useReward("rewardId", "emoji", { zIndex: 10, lifetime: 70, startVelocity: 55, decay: 0.95 });
     const [liked, setLiked] = useState(false);
+    const { reward } = useReward("rewardId", "emoji", { zIndex: 10, lifetime: 70, startVelocity: 55, decay: 0.95 });
 
     const onSwipe = () => {
         setCount((prev) => prev + 1);
@@ -40,7 +38,7 @@ const App = () => {
     };
 
     useEffect(() => {
-        for (var i = 0; i < preload - 1; i++) {
+        for (var i = 0; i < 5; i++) {
             fetchImage(i);
         }
     }, []);
@@ -52,15 +50,14 @@ const App = () => {
     return (
         <div>
             <div className="cardContainer">
-                {images
-                    .map((image) => (
-                        <TinderCard onSwipe={onSwipe} key={image} className="swipe">
-                            <div onTouchEnd={onTap} style={{ backgroundImage: "url(" + image + ")" }} className="card">
-                                <Heart liked={liked} setLiked={setLiked} reward={reward} />
-                                <Save url={image.split("?")[0]} />
-                            </div>
-                        </TinderCard>
-                    ))}
+                {images.map((image) => (
+                    <TinderCard onSwipe={onSwipe} key={image} className="swipe">
+                        <div onTouchEnd={onTap} style={{ backgroundImage: "url(" + image + ")" }} className="card">
+                            <Heart liked={liked} setLiked={setLiked} reward={reward} />
+                            <Save url={image.split("?")[0]} />
+                        </div>
+                    </TinderCard>
+                ))}
             </div>
         </div>
     );
