@@ -12,7 +12,7 @@ const App = () => {
 
     const [margin, setMargin] = useState(preload);
     const [images, setImages] = useState([]);
-    const { reward } = useReward("rewardId", "emoji", { zIndex: 10 });
+    const { reward } = useReward("rewardId", "emoji", { zIndex: 10, lifetime: 70, startVelocity:55, decay: 0.95 });
     const [liked, setLiked] = useState(false);
 
     const onSwipe = () => {
