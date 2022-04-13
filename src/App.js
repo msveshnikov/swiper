@@ -8,15 +8,13 @@ import isDoubleTap from "./isDoubleTap";
 import { useReward } from "react-rewards";
 
 const App = () => {
-    const preload = 5;
-
-    const [margin, setMargin] = useState(preload);
+    const [count, setCount] = useState(0);
     const [images, setImages] = useState([]);
-    const { reward } = useReward("rewardId", "emoji", { zIndex: 10, lifetime: 70, startVelocity:55, decay: 0.95 });
     const [liked, setLiked] = useState(false);
+    const { reward } = useReward("rewardId", "emoji", { zIndex: 10, lifetime: 70, startVelocity: 55, decay: 0.95 });
 
     const onSwipe = () => {
-        setMargin((prev) => prev + 1);
+        setCount((old) => old + 1);
         setLiked(false);
     };
 
@@ -24,10 +22,10 @@ const App = () => {
         fetch(`https://source.unsplash.com/random/900x2000?sig=${i}`).then((res) =>
             setImages((old) => {
                 if (old.includes(res.url)) {
-                    setMargin((prev) => prev + 1);
+                    setCount((old) => old + 1);
                     return old;
                 }
-                return [...old, res.url];
+                return [res.url, ...old];
             })
         );
     };
@@ -40,29 +38,26 @@ const App = () => {
     };
 
     useEffect(() => {
-        for (var i = 0; i < preload - 1; i++) {
+        for (var i = 0; i < 5; i++) {
             fetchImage(i);
         }
     }, []);
 
     useEffect(() => {
-        fetchImage(margin);
-    }, [margin]);
+        fetchImage(count);
+    }, [count]);
 
     return (
         <div>
             <div className="cardContainer">
-                {images
-                    .slice(-preload)
-                    .reverse()
-                    .map((image) => (
-                        <TinderCard onSwipe={onSwipe} key={image} className="swipe">
-                            <div onTouchEnd={onTap} style={{ backgroundImage: "url(" + image + ")" }} className="card">
-                                <Heart liked={liked} setLiked={setLiked} reward={reward} />
-                                <Save url={image.split("?")[0]} />
-                            </div>
-                        </TinderCard>
-                    ))}
+                {images.map((image) => (
+                    <TinderCard onSwipe={onSwipe} key={image} className="swipe">
+                        <div onTouchEnd={onTap} style={{ backgroundImage: "url(" + image + ")" }} className="card">
+                            <Heart liked={liked} setLiked={setLiked} reward={reward} />
+                            <Save url={image.split("?")[0]} />
+                        </div>
+                    </TinderCard>
+                ))}
             </div>
         </div>
     );
