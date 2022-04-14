@@ -4,7 +4,7 @@ import TinderCard from "react-tinder-card";
 import Heart from "./Heart";
 import Save from "./Save";
 import "./App.css";
-import isDoubleTap from "./isDoubleTap";
+import isDoubleTap from "./DoubleTap";
 import { useReward } from "react-rewards";
 
 const App = () => {

@@ -5,11 +5,11 @@ let latestTap = {
 };
 
 export default function isDoubleTap(event) {
-    const touchTap = {
+    const tap = {
         time: new Date().getTime(),
         target: event.currentTarget,
     };
-    const isDoubleTap = touchTap.target === latestTap.target && touchTap.time - latestTap.time < doubleTapMaxDelay;
-    latestTap = touchTap;
+    const isDoubleTap = tap.target === latestTap.target && tap.time - latestTap.time < doubleTapMaxDelay;
+    latestTap = tap;
     return isDoubleTap;
 }
