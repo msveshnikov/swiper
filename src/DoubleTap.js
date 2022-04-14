@@ -1,5 +1,5 @@
-const doubleTapMaxDelay = 300;
-let latestTap = {
+const maxDelay = 300;
+let lastTap = {
     time: 0,
     target: null,
 };
@@ -9,7 +9,7 @@ export default function isDoubleTap(event) {
         time: new Date().getTime(),
         target: event.currentTarget,
     };
-    const isDoubleTap = tap.target === latestTap.target && tap.time - latestTap.time < doubleTapMaxDelay;
-    latestTap = tap;
+    const isDoubleTap = tap.target === lastTap.target && tap.time - lastTap.time < maxDelay;
+    lastTap = tap;
     return isDoubleTap;
 }
