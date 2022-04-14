@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import fileDownload from "js-file-download";
 import axios from "axios";
@@ -39,8 +39,8 @@ const useStyles = makeStyles((theme) => ({
 
 const Save = ({ url }) => {
     const classes = useStyles();
-    const [loading, setLoading] = React.useState(false);
-    const [success, setSuccess] = React.useState(false);
+    const [loading, setLoading] = useState(false);
+    const [success, setSuccess] = useState(false);
 
     const buttonClassname = clsx({
         [classes.buttonSuccess]: success,

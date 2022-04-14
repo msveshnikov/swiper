@@ -1,4 +1,3 @@
-import React from "react";
 import { useState, useEffect } from "react";
 import TinderCard from "react-tinder-card";
 import Heart from "./Heart";
@@ -8,7 +7,7 @@ import isDoubleTap from "./DoubleTap";
 import { useReward } from "react-rewards";
 
 const App = () => {
-    const [count, setCount] = useState(0);
+    const [count, setCount] = useState(5);
     const [images, setImages] = useState([]);
     const [liked, setLiked] = useState(false);
     const { reward } = useReward("rewardId", "emoji", { zIndex: 10, lifetime: 70, startVelocity: 55, decay: 0.95 });
@@ -22,6 +21,7 @@ const App = () => {
         fetch(`https://source.unsplash.com/random/900x2000?sig=${i}`).then((res) =>
             setImages((old) => {
                 if (old.includes(res.url)) {
+                    // sometimes unsplash returns the same image
                     setCount((old) => old + 1);
                     return old;
                 }
