@@ -5,11 +5,13 @@ import Save from "./Save";
 import "./App.css";
 import isDoubleTap from "./DoubleTap";
 import { useReward } from "react-rewards";
+import useScreenOrientation from "react-hook-screen-orientation";
 
 const App = () => {
     const [count, setCount] = useState(5);
     const [images, setImages] = useState([]);
     const [liked, setLiked] = useState(false);
+    const screenOrientation = useScreenOrientation();
     const { reward } = useReward("rewardId", "emoji", { zIndex: 10, lifetime: 70, startVelocity: 55, decay: 0.95 });
 
     const onSwipe = () => {
@@ -17,8 +19,9 @@ const App = () => {
         setLiked(false);
     };
 
-    const fetchImage = (i) => {
-        fetch(`https://source.unsplash.com/random/900x2000?sig=${i}`).then((res) =>
+    const fetchImage = (i, screenOrientation) => {
+        const crop = screenOrientation.split("-")[0] === "landscape" ? "2000x900" : "900x2000";
+        fetch(`https://source.unsplash.com/random/${crop}?sig=${i}`).then((res) =>
             setImages((old) => {
                 if (old.includes(res.url)) {
                     // sometimes unsplash returns the same image
@@ -39,13 +42,13 @@ const App = () => {
 
     useEffect(() => {
         for (var i = 0; i < 5; i++) {
-            fetchImage(i);
+            fetchImage(i, screenOrientation);
         }
-    }, []);
+    }, [screenOrientation]);
 
     useEffect(() => {
-        fetchImage(count);
-    }, [count]);
+        fetchImage(count, screenOrientation);
+    }, [count, screenOrientation]);
 
     return (
         <div>
