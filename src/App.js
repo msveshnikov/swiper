@@ -41,6 +41,7 @@ const App = () => {
     };
 
     useEffect(() => {
+        setImages([]);
         for (var i = 0; i < 5; i++) {
             fetchImage(i, screenOrientation);
         }
