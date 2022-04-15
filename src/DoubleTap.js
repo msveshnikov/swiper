@@ -1,8 +1,5 @@
 const maxDelay = 300;
-let lastTap = {
-    time: 0,
-    target: null,
-};
+let lastTap = {};
 
 export default function isDoubleTap(event) {
     const tap = {
