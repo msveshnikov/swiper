@@ -48,6 +48,10 @@ const App = () => {
         window.addEventListener("keydown", function (e) {
             if (!card.current) return;
             switch (e.key) {
+                case " ":
+                    setLiked(true);
+                    reward();
+                    break;
                 case "ArrowLeft":
                     card.current.swipe("left");
                     break;
