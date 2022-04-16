@@ -1,5 +1,6 @@
 body {
     margin: 0;
+    overflow: hidden;
 }
 
 #root {
@@ -40,7 +41,6 @@ body {
         background-position: center;
     }
 }
-
 
 @media (orientation: landscape) {
     .cardContainer {
