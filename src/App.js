@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import TinderCard from "react-tinder-card";
 import Heart from "./Heart";
 import Save from "./Save";
@@ -10,11 +10,13 @@ import useScreenOrientation from "react-hook-screen-orientation";
 const App = () => {
     const [count, setCount] = useState(5);
     const [images, setImages] = useState([]);
+    const [swiped, setSwiped] = useState([]);
     const [liked, setLiked] = useState(false);
     const screenOrientation = useScreenOrientation();
     const { reward } = useReward("rewardId", "emoji", { zIndex: 10, lifetime: 70, startVelocity: 55, decay: 0.95 });
 
-    const onSwipe = () => {
+    const onSwipe = (image) => {
+        setSwiped((old) => [image, ...old]);
         setCount((old) => old + 1);
         setLiked(false);
     };
@@ -40,6 +42,29 @@ const App = () => {
         }
     };
 
+    const card = useRef();
+
+    useEffect(() => {
+        window.addEventListener("keydown", function (e) {
+            if (!card.current) return;
+            switch (e.key) {
+                case "ArrowLeft":
+                    card.current.swipe("left");
+                    break;
+                case "ArrowUp":
+                    card.current.swipe("up");
+                    break;
+                case "ArrowRight":
+                    card.current.swipe("right");
+                    break;
+                case "ArrowDown":
+                    card.current.swipe("down");
+                    break;
+                default:
+            }
+        });
+    }, []);
+
     useEffect(() => {
         setImages([]);
         for (var i = 0; i < 5; i++) {
@@ -55,7 +80,12 @@ const App = () => {
         <div>
             <div className="cardContainer">
                 {images.map((image) => (
-                    <TinderCard onSwipe={onSwipe} key={image} className="swipe">
+                    <TinderCard
+                        ref={!swiped.includes(image) ? card : null}
+                        onSwipe={() => onSwipe(image)}
+                        key={image}
+                        className="swipe"
+                    >
                         <div onTouchEnd={onTap} style={{ backgroundImage: "url(" + image + ")" }} className="card">
                             <Heart liked={liked} setLiked={setLiked} reward={reward} />
                             <Save url={image.split("?")[0]} />
