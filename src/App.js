@@ -21,9 +21,9 @@ const App = () => {
         setLiked(false);
     };
 
-    const fetchImage = (no, orientation) => {
+    const fetchImage = (count, orientation) => {
         const crop = orientation.split("-")[0] === "landscape" ? "2000x900" : "900x2000";
-        fetch(`https://source.unsplash.com/random/${crop}?sig=${no}`).then((res) =>
+        fetch(`https://source.unsplash.com/random/${crop}?sig=${count}`).then((res) =>
             setImages((old) => {
                 if (old.includes(res.url)) {
                     // sometimes unsplash returns the same image
