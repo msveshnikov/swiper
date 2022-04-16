@@ -49,8 +49,7 @@ const App = () => {
             if (!card.current) return;
             switch (e.key) {
                 case " ":
-                    setLiked(true);
-                    reward();
+                    onTap(e);
                     break;
                 case "ArrowLeft":
                     card.current.swipe("left");
