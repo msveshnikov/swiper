@@ -14,7 +14,6 @@
         "react-dom": "^18.0.0",
         "react-hook-screen-orientation": "^1.0.3",
         "react-rewards": "^2.0.3",
-        "react-scripts": "5.0.1",
         "react-tinder-card": "1.4.5",
         "workbox-background-sync": "^6.5.3",
         "workbox-broadcast-update": "^6.5.3",
@@ -29,6 +28,9 @@
         "workbox-strategies": "^6.5.3",
         "workbox-streams": "^6.5.3"
     },
+    "devDependencies": {
+        "react-scripts": "^5.0.1"
+      },
     "scripts": {
         "start": "react-scripts start",
         "build": "react-scripts build",
