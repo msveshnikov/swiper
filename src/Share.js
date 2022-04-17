@@ -64,6 +64,8 @@ const Share = ({ url }) => {
                 navigator.share({
                     files: [file],
                     title: "Photo",
+                    text: "Check out this photo",
+                    url: "https://swiper.ml/",
                 });
             }
         }
