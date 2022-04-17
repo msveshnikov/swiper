@@ -6,6 +6,7 @@ import "./App.css";
 import isDoubleTap from "./DoubleTap";
 import { useReward } from "react-rewards";
 import useScreenOrientation from "react-hook-screen-orientation";
+import useEventListener from "@use-it/event-listener";
 
 const App = () => {
     const [count, setCount] = useState(5);
@@ -44,30 +45,28 @@ const App = () => {
 
     const card = useRef();
 
-    useEffect(() => {
-        window.addEventListener("keydown", function (e) {
-            if (!card.current) return;
-            switch (e.key) {
-                case " ":
-                    onTap(e);
-                    break;
-                case "ArrowLeft":
-                    card.current.swipe("left");
-                    break;
-                case "ArrowUp":
-                    card.current.swipe("up");
-                    break;
-                case "ArrowRight":
-                    card.current.swipe("right");
-                    break;
-                case "ArrowDown":
-                    card.current.swipe("down");
-                    break;
-                default:
-            }
-        });
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    const onKeyDown = (e) => {
+        if (!card.current) return;
+        switch (e.key) {
+            case " ":
+                onTap(e);
+                break;
+            case "ArrowLeft":
+                card.current.swipe("left");
+                break;
+            case "ArrowUp":
+                card.current.swipe("up");
+                break;
+            case "ArrowRight":
+                card.current.swipe("right");
+                break;
+            case "ArrowDown":
+                card.current.swipe("down");
+                break;
+            default:
+        }
+    };
+    useEventListener('keydown', onKeyDown);
 
     useEffect(() => {
         setImages([]);
