@@ -47,7 +47,7 @@ const Share = ({ url }) => {
     const urlToFile = async (url) => {
         const response = await fetch(url);
         const blob = await response.blob();
-        return new File([blob], "image.jpg", { type: blob.type });
+        return new File([blob], `Swiper-${new Date().toISOString()}.jpeg`, { type: blob.type });
     };
 
     const handleShareClick = async () => {
@@ -64,6 +64,8 @@ const Share = ({ url }) => {
                 navigator.share({
                     files: [file],
                     title: "Photo",
+                    text: "Check out this photo",
+                    url: "https://swiper.ml/",
                 });
             }
         }
