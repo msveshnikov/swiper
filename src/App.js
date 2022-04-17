@@ -12,7 +12,7 @@ const App = () => {
     const [images, setImages] = useState([]);
     const [swiped, setSwiped] = useState([]);
     const [liked, setLiked] = useState(false);
-    const screenOrientation = useScreenOrientation();
+    const orientation = useScreenOrientation();
     const { reward } = useReward("rewardId", "emoji", { zIndex: 10, lifetime: 70, startVelocity: 55, decay: 0.95 });
 
     const onSwipe = (image) => {
@@ -21,9 +21,9 @@ const App = () => {
         setLiked(false);
     };
 
-    const fetchImage = (i, screenOrientation) => {
-        const crop = screenOrientation.split("-")[0] === "landscape" ? "2000x900" : "900x2000";
-        fetch(`https://source.unsplash.com/random/${crop}?sig=${i}`).then((res) =>
+    const fetchImage = (count, orientation) => {
+        const crop = orientation.split("-")[0] === "landscape" ? "2000x900" : "900x2000";
+        fetch(`https://source.unsplash.com/random/${crop}?sig=${count}`).then((res) =>
             setImages((old) => {
                 if (old.includes(res.url)) {
                     // sometimes unsplash returns the same image
@@ -49,8 +49,7 @@ const App = () => {
             if (!card.current) return;
             switch (e.key) {
                 case " ":
-                    setLiked(true);
-                    reward();
+                    onTap(e);
                     break;
                 case "ArrowLeft":
                     card.current.swipe("left");
@@ -67,26 +66,26 @@ const App = () => {
                 default:
             }
         });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
         setImages([]);
         for (var i = 0; i < 5; i++) {
-            fetchImage(i, screenOrientation);
+            fetchImage(i, orientation);
         }
-    }, [screenOrientation]);
+    }, [orientation]);
 
     useEffect(() => {
-        fetchImage(count, screenOrientation);
-    }, [count, screenOrientation]);
+        fetchImage(count, orientation);
+    }, [count, orientation]);
 
     return (
         <div>
             <div className="cardContainer">
                 {images.map((image) => (
                     <TinderCard
-                        ref={!swiped.includes(image) ? card : null}
+                        ref={swiped.includes(image) ? null : card}
                         onSwipe={() => onSwipe(image)}
                         key={image}
                         className="swipe"
