@@ -7,6 +7,7 @@ import isDoubleTap from "./DoubleTap";
 import { useReward } from "react-rewards";
 import useScreenOrientation from "react-hook-screen-orientation";
 import useEventListener from "@use-it/event-listener";
+import Share from "./Share";
 
 const App = () => {
     const [count, setCount] = useState(5);
@@ -66,7 +67,7 @@ const App = () => {
             default:
         }
     };
-    useEventListener('keydown', onKeyDown);
+    useEventListener("keydown", onKeyDown);
 
     useEffect(() => {
         setImages([]);
@@ -92,6 +93,7 @@ const App = () => {
                         <div onTouchEnd={onTap} style={{ backgroundImage: "url(" + image + ")" }} className="card">
                             <Heart liked={liked} setLiked={setLiked} reward={reward} />
                             <Save url={image.split("?")[0]} />
+                            <Share url={image.split("?")[0]} />
                         </div>
                     </TinderCard>
                 ))}
