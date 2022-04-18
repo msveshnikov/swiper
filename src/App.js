@@ -96,7 +96,7 @@ const App = () => {
                         className="swipe"
                     >
                         <div onTouchEnd={onTap} style={{ backgroundImage: "url(" + image + ")" }} className="card">
-                            <Like liked={liked} setLiked={setLiked} reward={reward} />
+                            <Like liked={liked} setLiked={setLiked} reward={reward} url={image}/>
                             <Save url={image.split("?")[0]} />
                             <Share url={image.split("?")[0]} />
                         </div>
