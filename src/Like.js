@@ -16,10 +16,10 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const Heart = ({liked, setLiked, reward}) => {
+const Like = ({liked, setLiked, reward}) => {
     const classes = useStyles();
 
-    const handleLikeClick = () => {
+    const onClick = () => {
         if (!liked) {
             reward();
         }
@@ -31,12 +31,12 @@ const Heart = ({liked, setLiked, reward}) => {
             id="rewardId"
             aria-label="Like button"
             className={clsx(classes.icon, liked && classes.liked)}
-            onTouchEnd={handleLikeClick}
-            onClick={handleLikeClick}
+            onTouchEnd={onClick}
+            onClick={onClick}
         >
             <FavoriteIcon />
         </IconButton>
     );
 };
 
-export default Heart;
+export default Like;

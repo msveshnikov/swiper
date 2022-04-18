@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import TinderCard from "react-tinder-card";
-import Heart from "./Heart";
+import Like from "./Like";
 import Save from "./Save";
 import "./App.css";
 import isDoubleTap from "./DoubleTap";
@@ -91,7 +91,7 @@ const App = () => {
                         className="swipe"
                     >
                         <div onTouchEnd={onTap} style={{ backgroundImage: "url(" + image + ")" }} className="card">
-                            <Heart liked={liked} setLiked={setLiked} reward={reward} />
+                            <Like liked={liked} setLiked={setLiked} reward={reward} />
                             <Save url={image.split("?")[0]} />
                             <Share url={image.split("?")[0]} />
                         </div>
