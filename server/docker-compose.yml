@@ -1,0 +1,27 @@
+version: "3.7"
+
+volumes:
+    mongo-data:
+        external: true
+
+services:
+    app:
+        image: extender777/swiper:latest
+        restart: unless-stopped
+        ports:
+            - 4000:4000
+
+    db:
+        image: mongo:latest
+        restart: unless-stopped
+        volumes:
+            - mongo-data:/data/db
+        ports:
+            - 27017:27017
+        command: mongod --auth
+
+        # Uncomment to change startup options
+        environment:
+            MONGO_INITDB_ROOT_USERNAME: max
+            MONGO_INITDB_ROOT_PASSWORD: j262
+            MONGO_INITDB_DATABASE: test

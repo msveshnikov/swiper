@@ -2,6 +2,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import IconButton from "@material-ui/core/IconButton";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import clsx from "clsx";
+import submitEvent from "./api";
 
 const useStyles = makeStyles((theme) => ({
     icon: {
@@ -16,12 +17,13 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const Heart = ({liked, setLiked, reward}) => {
+const Like = ({ liked, setLiked, reward, url }) => {
     const classes = useStyles();
 
-    const handleLikeClick = () => {
+    const onClick = () => {
         if (!liked) {
             reward();
+            submitEvent(url, "like");
         }
         setLiked(!liked);
     };
@@ -31,12 +33,12 @@ const Heart = ({liked, setLiked, reward}) => {
             id="rewardId"
             aria-label="Like button"
             className={clsx(classes.icon, liked && classes.liked)}
-            onTouchEnd={handleLikeClick}
-            onClick={handleLikeClick}
+            onTouchEnd={onClick}
+            onClick={onClick}
         >
             <FavoriteIcon />
         </IconButton>
     );
 };
 
-export default Heart;
+export default Like;

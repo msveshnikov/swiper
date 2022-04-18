@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import TinderCard from "react-tinder-card";
-import Heart from "./Heart";
+import Like from "./Like";
 import Save from "./Save";
 import "./App.css";
 import isDoubleTap from "./DoubleTap";
@@ -8,6 +8,7 @@ import { useReward } from "react-rewards";
 import useScreenOrientation from "react-hook-screen-orientation";
 import useEventListener from "@use-it/event-listener";
 import Share from "./Share";
+import submitEvent from "./api";
 
 const App = () => {
     const [count, setCount] = useState(5);
@@ -17,10 +18,15 @@ const App = () => {
     const orientation = useScreenOrientation();
     const { reward } = useReward("rewardId", "emoji", { zIndex: 10, lifetime: 70, startVelocity: 55, decay: 0.95 });
 
-    const onSwipe = (image) => {
-        setSwiped((old) => [image, ...old]);
-        setCount((old) => old + 1);
+    const onSwipe = (url, dir) => {
+        setSwiped((old) => [url, ...old]);
         setLiked(false);
+        submitEvent(url, "swipe " + dir);
+        setCount((old) => old + 1);
+    };
+
+    const onLeftScreen = (url) => {
+        setImages((old) => old.filter((i) => i !== url));
     };
 
     const fetchImage = (count, orientation) => {
@@ -83,17 +89,18 @@ const App = () => {
     return (
         <div>
             <div className="cardContainer">
-                {images.map((image) => (
+                {images.map((url) => (
                     <TinderCard
-                        ref={swiped.includes(image) ? null : card}
-                        onSwipe={() => onSwipe(image)}
-                        key={image}
+                        ref={swiped.includes(url) ? null : card}
+                        onSwipe={(dir) => onSwipe(url, dir)}
+                        onCardLeftScreen={() => onLeftScreen(url)}
+                        key={url}
                         className="swipe"
                     >
-                        <div onTouchEnd={onTap} style={{ backgroundImage: "url(" + image + ")" }} className="card">
-                            <Heart liked={liked} setLiked={setLiked} reward={reward} />
-                            <Save url={image.split("?")[0]} />
-                            <Share url={image.split("?")[0]} />
+                        <div onTouchEnd={onTap} style={{ backgroundImage: "url(" + url + ")" }} className="card">
+                            <Like liked={liked} setLiked={setLiked} reward={reward} url={url} />
+                            <Save url={url.split("?")[0]} />
+                            <Share url={url.split("?")[0]} />
                         </div>
                     </TinderCard>
                 ))}
