@@ -19,8 +19,12 @@ const App = () => {
 
     const onSwipe = (image) => {
         setSwiped((old) => [image, ...old]);
-        setCount((old) => old + 1);
         setLiked(false);
+        setCount((old) => old + 1);
+    };
+
+    const onLeftScreen = (image) => {
+        setImages((old) => old.filter((i) => i !== image));
     };
 
     const fetchImage = (count, orientation) => {
@@ -87,6 +91,7 @@ const App = () => {
                     <TinderCard
                         ref={swiped.includes(image) ? null : card}
                         onSwipe={() => onSwipe(image)}
+                        onCardLeftScreen={() => onLeftScreen(image)}
                         key={image}
                         className="swipe"
                     >
