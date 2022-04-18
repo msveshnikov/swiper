@@ -8,6 +8,7 @@ import { useReward } from "react-rewards";
 import useScreenOrientation from "react-hook-screen-orientation";
 import useEventListener from "@use-it/event-listener";
 import Share from "./Share";
+import submitEvent from "./api";
 
 const App = () => {
     const [count, setCount] = useState(5);
@@ -17,9 +18,10 @@ const App = () => {
     const orientation = useScreenOrientation();
     const { reward } = useReward("rewardId", "emoji", { zIndex: 10, lifetime: 70, startVelocity: 55, decay: 0.95 });
 
-    const onSwipe = (image) => {
+    const onSwipe = (image, dir) => {
         setSwiped((old) => [image, ...old]);
         setLiked(false);
+        submitEvent(image, "swipe " + dir);
         setCount((old) => old + 1);
     };
 
@@ -90,13 +92,13 @@ const App = () => {
                 {images.map((image) => (
                     <TinderCard
                         ref={swiped.includes(image) ? null : card}
-                        onSwipe={() => onSwipe(image)}
+                        onSwipe={(dir) => onSwipe(image, dir)}
                         onCardLeftScreen={() => onLeftScreen(image)}
                         key={image}
                         className="swipe"
                     >
                         <div onTouchEnd={onTap} style={{ backgroundImage: "url(" + image + ")" }} className="card">
-                            <Like liked={liked} setLiked={setLiked} reward={reward} url={image}/>
+                            <Like liked={liked} setLiked={setLiked} reward={reward} url={image} />
                             <Save url={image.split("?")[0]} />
                             <Share url={image.split("?")[0]} />
                         </div>
