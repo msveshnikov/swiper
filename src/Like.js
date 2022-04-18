@@ -28,15 +28,13 @@ const Like = ({ liked, setLiked, reward }) => {
             eventType: "like",
         };
 
-        const res = await fetch(API_URL + "/event", {
+        await fetch(API_URL + "/event", {
             method: "POST",
             body: JSON.stringify(event),
             headers: {
                 "Content-Type": "application/json",
             },
         });
-        const data = await res.json();
-        return console.log(data);
     };
 
     const onClick = () => {

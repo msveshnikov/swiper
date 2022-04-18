@@ -3,15 +3,11 @@ version: "3.7"
 volumes:
     mongo-data:
         external: true
-    chat-media:
-        external: true
 
 services:
     app:
-        image: extender777/chat:arm
+        image: extender777/swiper:latest
         restart: unless-stopped
-        volumes:
-            - chat-media:/usr/src/app/files
         ports:
             - 4000:4000
 
