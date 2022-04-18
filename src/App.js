@@ -18,15 +18,15 @@ const App = () => {
     const orientation = useScreenOrientation();
     const { reward } = useReward("rewardId", "emoji", { zIndex: 10, lifetime: 70, startVelocity: 55, decay: 0.95 });
 
-    const onSwipe = (image, dir) => {
-        setSwiped((old) => [image, ...old]);
+    const onSwipe = (url, dir) => {
+        setSwiped((old) => [url, ...old]);
         setLiked(false);
-        submitEvent(image, "swipe " + dir);
+        submitEvent(url, "swipe " + dir);
         setCount((old) => old + 1);
     };
 
-    const onLeftScreen = (image) => {
-        setImages((old) => old.filter((i) => i !== image));
+    const onLeftScreen = (url) => {
+        setImages((old) => old.filter((i) => i !== url));
     };
 
     const fetchImage = (count, orientation) => {
@@ -89,18 +89,18 @@ const App = () => {
     return (
         <div>
             <div className="cardContainer">
-                {images.map((image) => (
+                {images.map((url) => (
                     <TinderCard
-                        ref={swiped.includes(image) ? null : card}
-                        onSwipe={(dir) => onSwipe(image, dir)}
-                        onCardLeftScreen={() => onLeftScreen(image)}
-                        key={image}
+                        ref={swiped.includes(url) ? null : card}
+                        onSwipe={(dir) => onSwipe(url, dir)}
+                        onCardLeftScreen={() => onLeftScreen(url)}
+                        key={url}
                         className="swipe"
                     >
-                        <div onTouchEnd={onTap} style={{ backgroundImage: "url(" + image + ")" }} className="card">
-                            <Like liked={liked} setLiked={setLiked} reward={reward} url={image} />
-                            <Save url={image.split("?")[0]} />
-                            <Share url={image.split("?")[0]} />
+                        <div onTouchEnd={onTap} style={{ backgroundImage: "url(" + url + ")" }} className="card">
+                            <Like liked={liked} setLiked={setLiked} reward={reward} url={url} />
+                            <Save url={url.split("?")[0]} />
+                            <Share url={url.split("?")[0]} />
                         </div>
                     </TinderCard>
                 ))}
