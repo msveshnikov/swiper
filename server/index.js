@@ -18,13 +18,24 @@ app.use(express.json());
 // simple route
 app.get("/", (req, res) => {
     res.json({ message: "Welcome to Swiper API." });
-  });
+});
 
-app.use("/event", (req, res) => {
-    // Event.create(event).catch(onError);
-    // event.createdAt = Date.now();
+/* This is a route handler. It is called when a POST request is made to the /event endpoint. It creates
+a new event object and saves it to the database. */
+app.post("/event", (req, res) => {
+    // Validate request
+    if (!req.body.eventType || !req.body.photoUrl || !req.body.userId) {
+        return res.status(400).send({
+            message: "Event type, photo url and user id are required.",
+        });
+    }
 
-    // res.status(201).json(relativeFilePath);
+    const event = {
+        ...req.body,
+        createdAt: new Date(),
+    };
+    Event.create(event).catch(onError);
+    return res.status(201).json(event);
 });
 
 app.use(onError);

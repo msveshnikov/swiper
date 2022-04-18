@@ -3,6 +3,8 @@ import IconButton from "@material-ui/core/IconButton";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import clsx from "clsx";
 
+const API_URL = "http://localhost:4000";
+
 const useStyles = makeStyles((theme) => ({
     icon: {
         position: "absolute",
@@ -16,12 +18,31 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const Like = ({liked, setLiked, reward}) => {
+const Like = ({ liked, setLiked, reward }) => {
     const classes = useStyles();
+
+    const submit = async () => {
+        const event = {
+            photoUrl: "this.state.name",
+            userId: 1,
+            eventType: "like",
+        };
+
+        const res = await fetch(API_URL + "/event", {
+            method: "POST",
+            body: JSON.stringify(event),
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+        const data = await res.json();
+        return console.log(data);
+    };
 
     const onClick = () => {
         if (!liked) {
             reward();
+            submit();
         }
         setLiked(!liked);
     };
