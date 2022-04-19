@@ -43,9 +43,10 @@ const App = () => {
         );
     };
 
-    const onTap = (e) => {
+    const onTap = (e, url) => {
         if (isDoubleTap(e) && !liked) {
             setLiked(true);
+            submitEvent(url, "like");
             reward();
         }
     };
@@ -56,7 +57,7 @@ const App = () => {
         if (!card.current) return;
         switch (e.key) {
             case " ":
-                onTap(e);
+                onTap(e); //TODO: fix url
                 break;
             case "ArrowLeft":
                 card.current.swipe("left");
@@ -97,7 +98,7 @@ const App = () => {
                         key={url}
                         className="swipe"
                     >
-                        <div onTouchEnd={onTap} style={{ backgroundImage: "url(" + url + ")" }} className="card">
+                        <div onTouchEnd={(e) => onTap(e, url)} style={{ backgroundImage: "url(" + url + ")" }} className="card">
                             <Like liked={liked} setLiked={setLiked} reward={reward} url={url} />
                             <Save url={url.split("?")[0]} />
                             <Share url={url.split("?")[0]} />
