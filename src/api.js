@@ -10,6 +10,11 @@ const getIp = async () => {
     return body.IPv4;
 };
 
+let ip;
+(async () => {
+    ip = await getIp();
+})();
+
 /**
  * It takes a URL and an event type, and sends a POST request to the API with the URL and event type,
  * along with the user's IP address
@@ -19,7 +24,7 @@ const getIp = async () => {
 const submitEvent = async (url, type) => {
     const event = {
         photoUrl: url,
-        userId: await getIp(),
+        userId: ip,
         eventType: type,
     };
 
