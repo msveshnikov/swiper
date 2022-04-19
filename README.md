@@ -14,7 +14,7 @@ https://swiper.ml/
 * docker build . -t extender777/swiper
 * docker push extender777/swiper    
 
-On server run:
+On server:
 
 * adjust docker-compose.yml
 * docker-compose up -d
