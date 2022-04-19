@@ -57,7 +57,7 @@ const App = () => {
         if (!card.current) return;
         switch (e.key) {
             case " ":
-                onTap(e); //TODO: fix url
+                onTap(e, images.slice(-1)[0]); // last image 
                 break;
             case "ArrowLeft":
                 card.current.swipe("left");
