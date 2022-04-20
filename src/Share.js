@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
         display: "flex",
         position: "absolute",
         bottom: 0,
-        left: 70,
+        left: 65,
         alignItems: "center",
         opacity: 0.6,
     },
