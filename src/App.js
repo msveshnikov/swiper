@@ -81,7 +81,8 @@ const App = () => {
         for (var i = 0; i < 5; i++) {
             fetchImage(i, orientation);
         }
-    }, [orientation]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     useEffect(() => {
         fetchImage(count, orientation);
