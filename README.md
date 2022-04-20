@@ -6,7 +6,7 @@ Just swipe to next photo, or double tap to like :)
 Demo:
 https://swiper.ml/
 
-# Server setup (just fro fun :)
+# Server setup (just for fun :)
 
 * adjust server/config.js
 * install docker, docker-compose
