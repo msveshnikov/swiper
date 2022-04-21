@@ -8,7 +8,7 @@ use('test');
 db.getCollection('events')
   .find(
     {
-        userId:  "86.49.253.36"
+      //  userId:  "86.49.253.36"
       /*
       * Filter
       * fieldA: value or expression
