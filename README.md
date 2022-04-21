@@ -18,3 +18,4 @@ On server:
 
 * adjust docker-compose.yml
 * docker-compose up -d
+* NGINX reverse proxy to 4000
