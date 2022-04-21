@@ -56,9 +56,9 @@ const App = () => {
                     <Card
                         key={url}
                         url={url}
-                        card={swiped.includes(url) ? null : topCard}
                         onSwipe={onSwipe}
                         onLeftScreen={onLeftScreen}
+                        card={swiped.includes(url) ? null : topCard}
                     />
                 ))}
             </div>
