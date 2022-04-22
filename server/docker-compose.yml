@@ -5,7 +5,7 @@ volumes:
 
 services:
     app:
-        image: extender777/swiper:latest
+        image: extender777/swiper:master
         restart: unless-stopped
         ports:
             - 4000:4000
@@ -15,3 +15,4 @@ services:
         restart: unless-stopped
         volumes:
             - mongo-data:/data/db
+
