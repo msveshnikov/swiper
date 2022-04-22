@@ -22,7 +22,7 @@ app.get("/", (req, res) => {
 app.post("/event", (req, res) => {
     if (!req.body.eventType || !req.body.photoUrl || !req.body.userId) {
         return res.status(400).send({
-            message: "Event type, photo url and user id are required.",
+            message: "eventType, photoUrl and userId are required.",
         });
     }
 

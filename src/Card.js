@@ -9,7 +9,11 @@ import { useReward } from "react-rewards";
 
 const Card = ({ url, onSwipe, onLeftScreen, card }) => {
     const [liked, setLiked] = useState(false);
-    const { reward } = useReward("rewardId", "emoji", { zIndex: 10, lifetime: 70, startVelocity: 45, decay: 0.95 });
+
+    /* Removing the query string from the url, to Save, Share full image */
+    const cleanUrl = url.split("?")[0];
+
+    const { reward } = useReward(cleanUrl, "emoji", { zIndex: 10 }); //), lifetime: 70, startVelocity: 45, decay: 0.95 });
 
     const onTap = (e, url) => {
         if (isDoubleTap(e) && !liked) {
@@ -27,9 +31,9 @@ const Card = ({ url, onSwipe, onLeftScreen, card }) => {
             ref={card}
         >
             <div onTouchEnd={(e) => onTap(e, url)} style={{ backgroundImage: "url(" + url + ")" }} className="card">
-                <Like liked={liked} setLiked={setLiked} reward={reward} url={url.split("?")[0]} />
-                <Save url={url.split("?")[0]} />
-                <Share url={url.split("?")[0]} />
+                <Like liked={liked} setLiked={setLiked} reward={reward} url={cleanUrl} />
+                <Save url={cleanUrl} />
+                <Share url={cleanUrl} />
             </div>
         </TinderCard>
     );
