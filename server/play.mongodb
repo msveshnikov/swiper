@@ -22,8 +22,7 @@ db.getCollection('events')
       */
     }
   )
-  .sort({
-      createdAt: -1 // sort by createdAt descending
+  .sort({ createdAt: -1 // sort by createdAt descending
     /*
     * fieldA: 1 // ascending
     * fieldB: -1 // descending

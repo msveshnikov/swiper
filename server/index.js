@@ -19,10 +19,20 @@ app.get("/", (req, res) => {
     res.json({ message: "Welcome to Swiper API." });
 });
 
+//get endpoint from mongodb query collection events
+app.get("/events", async (req, res) => {
+    try {
+        const events = await Event.find();
+        res.json(events);
+    } catch (err) {
+        onError(err, res);
+    }
+});
+
 app.post("/event", (req, res) => {
     if (!req.body.eventType || !req.body.photoUrl || !req.body.userId) {
         return res.status(400).send({
-            message: "Event type, photo url and user id are required.",
+            message: "eventType, photoUrl and userId are required.",
         });
     }
 
