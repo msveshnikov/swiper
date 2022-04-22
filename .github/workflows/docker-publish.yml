@@ -51,13 +51,15 @@ jobs:
         name: Deploy to Oracle
         runs-on: ubuntu-latest
         steps:
-            - uses: actions/checkout@v3
+            - uses: actions/checkout@master
 
             - name: copy file via ssh 
               uses: appleboy/scp-action@master
               with:
                   host: ${{ secrets.SSH_HOST }}
                   username: ${{ secrets.SSH_USER }}
+                  password: 
+                  port: 22
                   key: ${{ secrets.SSH_KEY }}
                   source: "server/docker-compose.yml"
                   target: "~/swiper"
