@@ -14,7 +14,7 @@ const App = () => {
 
     const onSwipe = (url, dir) => {
         setSwiped((old) => [url, ...old]);
-        submitEvent(url, "swipe " + dir);
+        submitEvent(url.split("?")[0], "swipe " + dir);
         setCount((old) => old + 1);
     };
 
