@@ -29,11 +29,11 @@ app.get("/events", async (req, res) => {
     }
 });
 
-/* This is a get request to the endpoint /agg. It is using the aggregate function to group the userId
-and count the number of times the userId appears. */
 app.get("/agg", async (req, res) => {
     try {
-        const events = await Event.aggregate([{ $group: { _id: "$userId", count: { $sum: 1 } } }]);
+        const events = await Event.aggregate([
+            { $group: { _id: { user: "$userId", event: "$eventType" }, count: { $sum: 1 } } },
+        ]);
         res.json(events);
     } catch (err) {
         onError(err, res);
