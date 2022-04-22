@@ -28,3 +28,7 @@ db.getCollection('events')
     * fieldB: -1 // descending
     */
   });
+
+db.events.aggregate([
+    {"$group" : {_id: {user: "$userId", event: "$eventType"}, count:{$sum:1}}}
+])
