@@ -13,7 +13,7 @@ const Card = ({ url, onSwipe, onLeftScreen, card }) => {
     /* Removing the query string from the url, to Save, Share full image */
     const cleanUrl = url.split("?")[0];
 
-    const { reward } = useReward(cleanUrl, "emoji", { zIndex: 10 }); //), lifetime: 70, startVelocity: 45, decay: 0.95 });
+    const { reward } = useReward("rewardId", "emoji", { zIndex: 10, lifetime: 70, startVelocity: 45, decay: 0.95 });
 
     const onTap = (e, url) => {
         if (isDoubleTap(e) && !liked) {

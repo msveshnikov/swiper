@@ -30,7 +30,7 @@ const Like = ({ liked, setLiked, reward, url }) => {
 
     return (
         <IconButton
-            id={url}
+            id="rewardId"
             aria-label="Like button"
             className={clsx(classes.icon, liked && classes.liked)}
             onTouchEnd={onClick}
