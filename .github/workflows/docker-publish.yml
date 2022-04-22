@@ -4,6 +4,13 @@ on:
     push:
         branches: [master]
 
+    # Allows you to run this workflow manually from the Actions tab
+    workflow_dispatch:
+
+env:
+    REPO: extender777/swiper
+    CONTAINER: swiper_app_1
+
 jobs:
     push_to_registry:
         name: Push Docker image to Docker Hub
@@ -29,7 +36,7 @@ jobs:
               id: meta
               uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
               with:
-                  images: extender777/swiper
+                  images: ${{ env.REPO }}
 
             - name: Build and push Docker image
               uses: docker/build-push-action@v2
@@ -39,3 +46,40 @@ jobs:
                   push: true
                   tags: ${{ steps.meta.outputs.tags }}
                   labels: ${{ steps.meta.outputs.labels }}
+
+    deploy:
+        needs: [push_to_registry]
+        name: Deploy to Oracle
+        runs-on: ubuntu-latest
+        steps:
+            - name: Setup SSH connection
+              uses: webfactory/ssh-agent@v0.5.1
+              with:
+                  ssh-private-key: ${{ secrets.SSH_KEY }}
+
+            - name: Adding Known Hosts
+              run: ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
+
+            - name: Login to the GitHub Packages Docker Registry
+              run: ssh ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}} "sudo docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}"
+
+            - name: Pull latest container
+              run: |
+                  ssh ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}} "sudo docker pull ${{env.REPO}}:master"
+
+            - name: Stop deployed container
+              continue-on-error: true
+              run: |
+                  ssh ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}} "sudo docker stop ${{env.CONTAINER}}"
+
+            - name: Remove deployed container
+              continue-on-error: true
+              run: |
+                  ssh ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}} "sudo docker rm ${{env.CONTAINER}}"
+
+            - name: Start docker container
+              run: |
+                  ssh ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}} "sudo docker run -p 4000:4000 -d --name=${{env.CONTAINER}} ${{env.REPO}}:master"
+
+            - name: Logout from the GitHub Packages Docker Registry
+              run: ssh ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}} "sudo docker logout"
