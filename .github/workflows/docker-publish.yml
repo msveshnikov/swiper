@@ -60,26 +60,18 @@ jobs:
             - name: Adding Known Hosts
               run: ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
 
-            - name: Login to the GitHub Packages Docker Registry
-              run: ssh ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}} "sudo docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}"
+#            - name: Login to the GitHub Packages Docker Registry
+#              run: ssh ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}} "sudo docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}"
 
             - name: Pull latest container
-              run: |
-                  ssh ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}} "sudo docker pull ${{env.REPO}}:master"
+              run: ssh ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}} "sudo docker pull ${{env.REPO}}:master"
 
-            - name: Stop deployed container
+#            - name: Logout from the GitHub Packages Docker Registry
+#              run: ssh ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}} "sudo docker logout"
+
+            - name: Stop deployed system
               continue-on-error: true
-              run: |
-                  ssh ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}} "sudo docker stop ${{env.CONTAINER}}"
+              run: ssh ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}} "cd swiper || sudo docker-compose down"
 
-            - name: Remove deployed container
-              continue-on-error: true
-              run: |
-                  ssh ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}} "sudo docker rm ${{env.CONTAINER}}"
-
-            - name: Start docker container
-              run: |
-                  ssh ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}} "sudo docker run -p 4000:4000 -d --name=${{env.CONTAINER}} ${{env.REPO}}:master"
-
-            - name: Logout from the GitHub Packages Docker Registry
-              run: ssh ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}} "sudo docker logout"
+            - name: Start system
+              run: ssh ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}} "cd swiper || sudo docker-compose up -d"
