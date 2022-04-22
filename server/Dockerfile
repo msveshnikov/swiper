@@ -1,4 +1,5 @@
-FROM --platform=linux/arm64/v8 node:18-alpine
+FROM  node:18-alpine 
+#--platform=linux/arm64/v8
 
 ENV NODE_ENV production
 
