@@ -60,7 +60,7 @@ jobs:
                   username: ${{ secrets.SSH_USER }}
                   privateKey: ${{ secrets.SSH_KEY }}
                   local: "server/docker-compose.yml"
-                  remote: "~/swiper/docker-compose.yml"
+                  remote: "swiper/docker-compose.yml"
 
             - name: Setup SSH connection
               uses: webfactory/ssh-agent@v0.5.1
