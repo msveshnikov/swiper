@@ -58,7 +58,7 @@ jobs:
                   username: ${{ secrets.SSH_USER }}
                   key: ${{ secrets.SSH_KEY }}
                   source: "server/docker-compose.yml"
-                  target: "swiper"
+                  target: "swiper/docker-compose.yml"
 
             - name: Setup SSH connection
               uses: webfactory/ssh-agent@master
