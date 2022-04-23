@@ -16,29 +16,29 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - name: Check out the repo
-              uses: actions/checkout@v3
+              uses: actions/checkout@master
 
             - name: Set up QEMU
-              uses: docker/setup-qemu-action@v1
+              uses: docker/setup-qemu-action@master
               with:
                   platforms: all
             - name: Set up Docker Buildx
-              uses: docker/setup-buildx-action@v1
+              uses: docker/setup-buildx-action@master
 
             - name: Log in to Docker Hub
-              uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
+              uses: docker/login-action@master
               with:
                   username: ${{ secrets.DOCKER_USERNAME }}
                   password: ${{ secrets.DOCKER_PASSWORD }}
 
             - name: Extract metadata (tags, labels) for Docker
               id: meta
-              uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
+              uses: docker/metadata-action@master
               with:
                   images: ${{ env.REPO }}
 
             - name: Build and push Docker image
-              uses: docker/build-push-action@v2
+              uses: docker/build-push-action@master
               with:
                   context: server
                   platforms: linux/amd64,linux/arm64/v8
@@ -54,7 +54,7 @@ jobs:
             - uses: actions/checkout@master
 
             - name: copy file via ssh
-              uses: garygrossgarten/github-action-scp@release
+              uses: garygrossgarten/github-action-scp@master
               with:
                   host: ${{ secrets.SSH_HOST }}
                   username: ${{ secrets.SSH_USER }}
@@ -63,7 +63,7 @@ jobs:
                   remote: "swiper/docker-compose.yml"
 
             - name: Setup SSH connection
-              uses: webfactory/ssh-agent@v0.5.1
+              uses: webfactory/ssh-agent@master
               with:
                   ssh-private-key: ${{ secrets.SSH_KEY }}
 
