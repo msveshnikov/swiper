@@ -52,13 +52,13 @@ jobs:
               uses: actions/checkout@master
 
             - name: copy file via ssh
-              uses: appleboy/scp-action@master
+              uses: garygrossgarten/github-action-scp@master
               with:
                   host: ${{ secrets.SSH_HOST }}
                   username: ${{ secrets.SSH_USER }}
-                  key: ${{ secrets.SSH_KEY }}
-                  source: "server/docker-compose.yml"
-                  target: "swiper/docker-compose.yml"
+                  privateKey: ${{ secrets.SSH_KEY }}
+                  local: "server/docker-compose.yml"
+                  remote: "swiper/docker-compose.yml"
 
             - name: Setup SSH connection
               uses: webfactory/ssh-agent@master
