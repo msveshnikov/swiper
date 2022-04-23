@@ -35,7 +35,7 @@ app.get("/agg", async (req, res) => {
         const events = await Event.aggregate([
             { $group: { _id: { user: "$userId", event: "$eventType" }, count: { $sum: 1 } } },
         ]);
-        res.json(JSON.stringify(events, null, 2));
+        res.json(events);
     } catch (err) {
         onError(err, res);
     }
