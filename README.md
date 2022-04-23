@@ -18,5 +18,12 @@ On server:
 
 * adjust docker-compose.yml
 * docker-compose up -d
-* NGINX reverse proxy to 4000
+* Nginx reverse proxy to 4000
 
+Or:
+
+* use GitHab Actions (create secrets)
+
+TODO:
+
+* containerize Nginx
