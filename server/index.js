@@ -29,6 +29,17 @@ app.get("/events", async (req, res) => {
     }
 });
 
+app.get("/agg", async (req, res) => {
+    try {
+        const events = await Event.aggregate([
+            { $group: { _id: { user: "$userId", event: "$eventType" }, count: { $sum: 1 } } },
+        ]);
+        res.json(events);
+    } catch (err) {
+        onError(err, res);
+    }
+});
+
 app.post("/event", (req, res) => {
     if (!req.body.eventType || !req.body.photoUrl || !req.body.userId) {
         return res.status(400).send({
