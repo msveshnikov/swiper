@@ -13,9 +13,9 @@ export default function SwipeableTemporaryDrawer({ open, onDrawer }) {
     const classes = useStyles();
 
     const toggleDrawer = (o) => (event) => {
-        if (event?.type === "keydown" && (event.key === "Tab" || event.key === "Shift")) {
-            return;
-        }
+        // if (event?.type === "keydown" && (event.key === "Tab" || event.key === "Shift")) {
+        //     return;
+        // }
         onDrawer(o);
     };
 
