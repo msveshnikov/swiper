@@ -53,7 +53,7 @@ const Cards = () => {
             <div className="cardContainer">
                 {images.map((url) => (
                     <Card
-                        key={url}
+                        key={url}  
                         url={url}
                         onSwipe={onSwipe}
                         onLeftScreen={onLeftScreen}

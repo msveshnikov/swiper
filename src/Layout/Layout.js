@@ -1,5 +1,4 @@
 import SideDrawer from "./SideDrawer";
-import { withTheme } from "@material-ui/core/styles";
 import { useState } from "react";
 
 const Layout = ({ children }) => {
@@ -14,4 +13,4 @@ const Layout = ({ children }) => {
     );
 };
 
-export default withTheme(Layout);
+export default Layout;
