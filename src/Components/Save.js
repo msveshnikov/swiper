@@ -1,19 +1,20 @@
 import { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
+import fileDownload from "js-file-download";
 import clsx from "clsx";
-import ShareIcon from "@material-ui/icons/Share";
+import SaveIcon from "@material-ui/icons/Save";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { green } from "@material-ui/core/colors";
 import Fab from "@material-ui/core/Fab";
 import CheckIcon from "@material-ui/icons/Check";
-import submitEvent from "./api";
+import submitEvent from "../utils/api";
 
 const useStyles = makeStyles((theme) => ({
     root: {
         display: "flex",
         position: "absolute",
         bottom: 0,
-        left: 65,
+        left: 0,
         alignItems: "center",
         opacity: 0.6,
     },
@@ -36,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const Share = ({ url }) => {
+const Save = ({ url }) => {
     const classes = useStyles();
     const [loading, setLoading] = useState(false);
     const [success, setSuccess] = useState(false);
@@ -45,31 +46,16 @@ const Share = ({ url }) => {
         [classes.buttonSuccess]: success,
     });
 
-    const urlToFile = async (url) => {
-        const response = await fetch(url);
-        const blob = await response.blob();
-        return new File([blob], `Swiper-${new Date().toISOString()}.jpeg`, { type: blob.type });
-    };
-
-    const handleShareClick = async () => {
-        if (!navigator.share) {
-            return;
-        }
+    const handleSaveClick = async () => {
         if (!loading) {
             setSuccess(false);
             setLoading(true);
-            const file = await urlToFile(url);
+            const response = await fetch(url);
+            const res = await response.blob();
             setSuccess(true);
             setLoading(false);
-            submitEvent(url, "share");
-            if (navigator.canShare && navigator.canShare({ files: [file] })) {
-                navigator.share({
-                    files: [file],
-                    title: "Photo",
-                    text: "Check out this photo",
-                    url: "https://swiper.ml/",
-                });
-            }
+            submitEvent(url, "save");
+            fileDownload(res, `Swiper-${new Date().toISOString()}.jpeg`, "image/jpeg");
         }
     };
 
@@ -77,12 +63,12 @@ const Share = ({ url }) => {
         <div className={classes.root}>
             <div className={classes.wrapper}>
                 <Fab
-                    aria-label="Share photo"
+                    aria-label="Save button"
                     className={buttonClassname}
-                    onTouchEnd={handleShareClick}
-                    onClick={handleShareClick}
+                    onTouchEnd={handleSaveClick}
+                    onClick={handleSaveClick}
                 >
-                    {success ? <CheckIcon /> : <ShareIcon />}
+                    {success ? <CheckIcon /> : <SaveIcon />}
                 </Fab>
                 {loading && <CircularProgress size={68} className={classes.fabProgress} />}
             </div>
@@ -90,4 +76,4 @@ const Share = ({ url }) => {
     );
 };
 
-export default Share;
+export default Save;

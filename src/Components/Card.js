@@ -2,8 +2,8 @@ import TinderCard from "react-tinder-card";
 import Like from "./Like";
 import Save from "./Save";
 import Share from "./Share";
-import isDoubleTap from "./DoubleTap";
-import submitEvent from "./api";
+import isDoubleTap from "../utils/DoubleTap";
+import submitEvent from "../utils/api";
 import { useState } from "react";
 import { useReward } from "react-rewards";
 

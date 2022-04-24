@@ -1,14 +1,16 @@
 import { useState, useEffect, useRef } from "react";
 import "./App.css";
 import useScreenOrientation from "react-hook-screen-orientation";
-import submitEvent from "./api";
-import Card from "./Card";
-import Keys from "./Keys";
+import submitEvent from "./utils/api";
+import Card from "./Components/Card";
+import Keys from "./Components/Keys";
+import SideDrawer from "./Layout/SideDrawer";
 
 const App = () => {
     const [count, setCount] = useState(5);
     const [images, setImages] = useState([]);
     const [swiped, setSwiped] = useState([]);
+    const [drawer, setDrawer] = useState(false);
     const orientation = useScreenOrientation();
     const topCard = useRef();
 
@@ -50,6 +52,7 @@ const App = () => {
     return (
         <div>
             <Keys topCard={topCard} />
+            <SideDrawer onDrawer={setDrawer} open={drawer} />
             <div className="cardContainer">
                 {images.map((url) => (
                     <Card
