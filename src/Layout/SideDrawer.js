@@ -5,7 +5,10 @@ import SwipeableDrawer from "@material-ui/core/SwipeableDrawer";
 
 const useStyles = makeStyles({
     list: {
-        width: 250,
+        width: "220",
+    },
+    fullList: {
+        width: "auto",
     },
 });
 
@@ -13,9 +16,6 @@ export default function SwipeableTemporaryDrawer({ open, onDrawer }) {
     const classes = useStyles();
 
     const toggleDrawer = (o) => (event) => {
-        // if (event?.type === "keydown" && (event.key === "Tab" || event.key === "Shift")) {
-        //     return;
-        // }
         onDrawer(o);
     };
 
@@ -26,7 +26,6 @@ export default function SwipeableTemporaryDrawer({ open, onDrawer }) {
                     className={classes.list}
                     role="presentation"
                     onClick={toggleDrawer(false)}
-                    onKeyDown={toggleDrawer(false)}
                 >
                     <NavigationItems />
                 </div>
