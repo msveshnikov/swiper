@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const MyLikes = (props) => {
+const MyLikes = () => {
     const classes = useStyles();
 
     const [photos, setPhotos] = useState();
@@ -38,24 +38,18 @@ const MyLikes = (props) => {
     }, []);
 
     return photos ? (
-        <>
-            <Container component="main" maxWidth="md">
-                <div className={classes.root}>
-                    <GridList cellHeight={250}>
-                        {photos.slice(0, margin).map((p, index) => (
-                            <GridListTile cols={index % 5 ? 1 : 2} key={p.photoId}>
-                                <img className={classes.photo} src={p.photoUrl} alt="RR" />
-                                <GridListTileBar
-                                    subtitle={
-                                        <span>{new Date(p?.createdAt?._seconds * 1000).toLocaleDateString()}</span>
-                                    }
-                                />
-                            </GridListTile>
-                        ))}
-                    </GridList>
-                </div>
-            </Container>
-        </>
+        <Container component="main" maxWidth="md">
+            <div className={classes.root}>
+                <GridList cellHeight={250}>
+                    {photos.slice(0, margin).map((p, index) => (
+                        <GridListTile cols={index % 5 ? 1 : 2} key={p.photoUrl.split("?")[0]}>
+                            <img className={classes.photo} src={p.photoUrl.split("?")[0] + "/250x250"} alt="RR" />
+                            <GridListTileBar subtitle={<span>{new Date(p?.createdAt).toLocaleDateString()}</span>} />
+                        </GridListTile>
+                    ))}
+                </GridList>
+            </div>
+        </Container>
     ) : null;
 };
 
