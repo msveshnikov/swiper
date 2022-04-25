@@ -36,20 +36,24 @@ const MyLikes = () => {
         fetchData().catch(console.error);
     }, []);
 
-    return photos ? (
-        <Container component="main" maxWidth="md">
-            <div className={classes.root}>
-                <ImageList rowHeight={250}>
-                    {photos.slice(0, margin).map((p, index) => (
-                        <ImageListItem cols={index % 5 ? 1 : 2} key={p.photoUrl.split("?")[0]}>
-                            <img className={classes.photo} src={p.photoUrl.split("?")[0] + "?h=350"} alt="RR" />
-                            <ImageListItemBar subtitle={<span>{new Date(p?.createdAt).toLocaleDateString()}</span>} />
-                        </ImageListItem>
-                    ))}
-                </ImageList>
-            </div>
-        </Container>
-    ) : null;
+    return (
+        photos && (
+            <Container component="main" maxWidth="md">
+                <div className={classes.root}>
+                    <ImageList rowHeight={250}>
+                        {photos.slice(0, margin).map((p, index) => (
+                            <ImageListItem cols={index % 5 ? 1 : 2} key={p.photoUrl.split("?")[0]}>
+                                <img className={classes.photo} src={p.photoUrl.split("?")[0] + "?h=350"} alt="RR" />
+                                <ImageListItemBar
+                                    subtitle={<span>{new Date(p?.createdAt).toLocaleDateString()}</span>}
+                                />
+                            </ImageListItem>
+                        ))}
+                    </ImageList>
+                </div>
+            </Container>
+        )
+    );
 };
 
 export default MyLikes;
