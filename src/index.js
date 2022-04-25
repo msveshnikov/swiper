@@ -7,7 +7,6 @@ import { createRoot } from "react-dom/client";
 
 Sentry.init({
     environment: process.env.NODE_ENV,
-    release: "swiper@" + process.env.npm_package_version,
     dsn: "https://505a033cd95c41eda67fac2ce3e9a9aa@o383246.ingest.sentry.io/6324817",
     integrations: [new BrowserTracing()],
     tracesSampleRate: 1.0,

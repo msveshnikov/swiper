@@ -43,7 +43,7 @@ app.get("/agg", async (req, res) => {
 
 app.get("/likes/:userId", async (req, res) => {
     try {
-        const events = await Event.find({ user: req.params.userId, eventType: "like" }).distinct("photoUrl");
+        const events = await Event.find({ user: req.params.userId, eventType: "like" });
         res.json(events);
     } catch (err) {
         onError(err, res);

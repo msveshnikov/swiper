@@ -2,7 +2,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import IconButton from "@material-ui/core/IconButton";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import clsx from "clsx";
-import submitEvent from "./api";
+import { submitEvent } from "../utils/api";
 
 const useStyles = makeStyles((theme) => ({
     icon: {

@@ -37,4 +37,14 @@ const submitEvent = async (url, type) => {
     });
 };
 
-export default submitEvent;
+const getLikes = async () => {
+
+    await fetch(API_URL + `/likes/${ip}`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+        },
+    });
+};
+
+export { submitEvent, getLikes };
