@@ -30,7 +30,11 @@ const MyLikes = (props) => {
     const [margin] = useInfinite(10, 0.85, 5);
 
     useEffect(() => {
-        setPhotos(getLikes());
+        const fetchData = async () => {
+            setPhotos(await getLikes());
+        };
+
+        fetchData().catch(console.error);
     }, []);
 
     return photos ? (

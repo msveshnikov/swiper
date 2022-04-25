@@ -38,13 +38,9 @@ const submitEvent = async (url, type) => {
 };
 
 const getLikes = async () => {
-    const user = {
-        userId: ip,
-    };
 
-    await fetch(API_URL + "/likes", {
+    await fetch(API_URL + `/likes/${ip}`, {
         method: "GET",
-        body: JSON.stringify(user),
         headers: {
             "Content-Type": "application/json",
         },
