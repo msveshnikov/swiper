@@ -5,4 +5,4 @@ export const ALLOWED_ORIGIN = [
     "https://photo-swiper.netlify.app",
     "http://localhost:3000",
 ];
-export const MONGODB_URI = "mongodb://db:27017/test";
+export const MONGODB_URI = "mongodb://mongo-db:27017/swiper";

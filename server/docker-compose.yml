@@ -10,7 +10,7 @@ services:
         ports:
             - 4000:4000
 
-    db:
+    mongo-db:
         image: mongo:latest
         restart: unless-stopped
         volumes:

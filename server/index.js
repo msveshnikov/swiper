@@ -29,6 +29,7 @@ app.get("/events", async (req, res) => {
     }
 });
 
+/* This is a query to the mongodb database. */
 app.get("/agg", async (req, res) => {
     try {
         const events = await Event.aggregate([
