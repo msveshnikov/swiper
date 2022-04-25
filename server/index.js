@@ -41,6 +41,20 @@ app.get("/agg", async (req, res) => {
     }
 });
 
+app.get("/likes", async (req, res) => {
+    if (!req.body.userId) {
+        return res.status(400).send({
+            message: "userId is required.",
+        });
+    }
+    try {
+        const events = await Event.find({ user: req.body.userId, eventType: "like" }).distinct("photoUrl");
+        res.json(events);
+    } catch (err) {
+        onError(err, res);
+    }
+});
+
 app.post("/event", (req, res) => {
     if (!req.body.eventType || !req.body.photoUrl || !req.body.userId) {
         return res.status(400).send({
