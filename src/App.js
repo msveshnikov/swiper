@@ -1,7 +1,7 @@
-import Layout from "./layout/Layout";
-import Cards from "./components/Cards";
+import Layout from "./Layout/Layout";
+import Cards from "./Components/Cards";
 import { Route, Routes, BrowserRouter } from "react-router-dom";
-import MyLikes from "./components/MyLikes";
+import MyLikes from "./Components/MyLikes";
 
 const App = () => {
     return (
