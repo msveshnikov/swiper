@@ -29,7 +29,8 @@ const MyLikes = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-            setPhotos(await getLikes());
+            const photos = await getLikes();
+            setPhotos([...new Map(photos.map((item) => [item["photoUrl"], item])).values()]);
         };
 
         fetchData().catch(console.error);
@@ -41,7 +42,7 @@ const MyLikes = () => {
                 <ImageList rowHeight={250}>
                     {photos.slice(0, margin).map((p, index) => (
                         <ImageListItem cols={index % 5 ? 1 : 2} key={p.photoUrl.split("?")[0]}>
-                            <img className={classes.photo} src={p.photoUrl.split("?")[0]+"?h=250"} alt="RR" />
+                            <img className={classes.photo} src={p.photoUrl.split("?")[0] + "?h=350"} alt="RR" />
                             <ImageListItemBar subtitle={<span>{new Date(p?.createdAt).toLocaleDateString()}</span>} />
                         </ImageListItem>
                     ))}
