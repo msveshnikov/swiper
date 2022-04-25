@@ -3,7 +3,7 @@ import Like from "./Like";
 import Save from "./Save";
 import Share from "./Share";
 import isDoubleTap from "../utils/DoubleTap";
-import submitEvent from "../utils/api";
+import { submitEvent } from "../utils/api";
 import { useState } from "react";
 import { useReward } from "react-rewards";
 

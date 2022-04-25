@@ -6,7 +6,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import { green } from "@material-ui/core/colors";
 import Fab from "@material-ui/core/Fab";
 import CheckIcon from "@material-ui/icons/Check";
-import submitEvent from "../utils/api";
+import { submitEvent } from "../utils/api";
 
 const useStyles = makeStyles((theme) => ({
     root: {

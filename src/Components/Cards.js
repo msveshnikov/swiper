@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import "./Cards.css";
 import useScreenOrientation from "react-hook-screen-orientation";
-import submitEvent from "../utils/api";
+import {submitEvent} from "../utils/api";
 import Card from "./Card";
 import Keys from "./Keys";
 
@@ -45,7 +45,8 @@ const Cards = () => {
 
     useEffect(() => {
         fetchImage(count, orientation);
-    }, [count, orientation]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [count]);
 
     return (
         <div>
