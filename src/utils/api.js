@@ -38,13 +38,8 @@ const submitEvent = async (url, type) => {
 };
 
 const getLikes = async () => {
-
-    await fetch(API_URL + `/likes/${ip}`, {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json",
-        },
-    });
+    const response = await fetch(API_URL + `/likes/${ip}`);
+    return await response.json();
 };
 
 export { submitEvent, getLikes };

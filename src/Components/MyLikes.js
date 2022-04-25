@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Container from "@material-ui/core/Container";
 import { makeStyles } from "@material-ui/core/styles";
-import GridList from "@material-ui/core/GridList";
-import GridListTile from "@material-ui/core/GridListTile";
-import GridListTileBar from "@material-ui/core/GridListTileBar";
+import { ImageList, ImageListItem, ImageListItemBar } from "@material-ui/core";
 import useInfinite from "../hooks/useInfinite";
 import { getLikes } from "../utils/api";
 
@@ -40,14 +38,14 @@ const MyLikes = () => {
     return photos ? (
         <Container component="main" maxWidth="md">
             <div className={classes.root}>
-                <GridList cellHeight={250}>
+                <ImageList rowHeight={250}>
                     {photos.slice(0, margin).map((p, index) => (
-                        <GridListTile cols={index % 5 ? 1 : 2} key={p.photoUrl.split("?")[0]}>
-                            <img className={classes.photo} src={p.photoUrl.split("?")[0] + "/250x250"} alt="RR" />
-                            <GridListTileBar subtitle={<span>{new Date(p?.createdAt).toLocaleDateString()}</span>} />
-                        </GridListTile>
+                        <ImageListItem cols={index % 5 ? 1 : 2} key={p.photoUrl.split("?")[0]}>
+                            <img className={classes.photo} src={p.photoUrl.split("?")[0]+"?h=250"} alt="RR" />
+                            <ImageListItemBar subtitle={<span>{new Date(p?.createdAt).toLocaleDateString()}</span>} />
+                        </ImageListItem>
                     ))}
-                </GridList>
+                </ImageList>
             </div>
         </Container>
     ) : null;
