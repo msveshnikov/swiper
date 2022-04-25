@@ -7,7 +7,6 @@ const Layout = ({ children }) => {
     return (
         <>
             <SideDrawer onDrawer={setDrawer} open={drawer} />
-
             {children}
         </>
     );

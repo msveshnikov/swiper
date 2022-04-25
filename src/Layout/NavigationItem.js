@@ -6,7 +6,7 @@ import { Link as RouterLink } from "react-router-dom";
 
 const NavigationItem = (props) => (
     <ListItem component={RouterLink} to={props.link} button>
-        <ListItemIcon>{props.icon}</ListItemIcon>
+        <ListItemIcon style={{minWidth: '40px'}} >{props.icon}</ListItemIcon>
         <ListItemText primary={props.children} />
     </ListItem>
 );

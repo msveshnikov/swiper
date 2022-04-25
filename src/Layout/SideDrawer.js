@@ -2,8 +2,7 @@ import React from "react";
 import NavigationItems from "./NavigationItems";
 import SwipeableDrawer from "@material-ui/core/SwipeableDrawer";
 
-export default function SwipeableTemporaryDrawer({ open, onDrawer }) {
-
+const SideDrawer = ({ open, onDrawer }) => {
     const toggleDrawer = (o) => (event) => {
         onDrawer(o);
     };
@@ -11,8 +10,10 @@ export default function SwipeableTemporaryDrawer({ open, onDrawer }) {
     return (
         <div>
             <SwipeableDrawer
-                hysteresis={0.1}
+                hysteresis={0.05}
                 minFlingVelocity={50}
+                swipeAreaWidth={50}
+                transitionDuration={30}
                 anchor="left"
                 open={open}
                 onClose={toggleDrawer(false)}
@@ -24,4 +25,6 @@ export default function SwipeableTemporaryDrawer({ open, onDrawer }) {
             </SwipeableDrawer>
         </div>
     );
-}
+};
+
+export default SideDrawer;
