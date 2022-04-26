@@ -50,6 +50,15 @@ app.get("/likes/:userId", async (req, res) => {
     }
 });
 
+app.get("/events/:userId/:eventType", async (req, res) => {
+    try {
+        const events = await Event.find({ user: req.params.userId, eventType: req.params.eventType });
+        res.json(events);
+    } catch (err) {
+        onError(err, res);
+    }
+});
+
 app.post("/event", (req, res) => {
     if (!req.body.eventType || !req.body.photoUrl || !req.body.userId) {
         return res.status(400).send({

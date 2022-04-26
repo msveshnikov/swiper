@@ -41,9 +41,9 @@ const submitEvent = async (url, type) => {
  * It fetches the likes from the API and returns the response as JSON.
  * @returns An array of objects.
  */
-const getLikes = async () => {
-    const response = await fetch(API_URL + `/likes/${ip}`);
+const getEvents = async (eventType) => {
+    const response = await fetch(API_URL + `/events/${ip}/${eventType}`);
     return await response.json();
 };
 
-export { submitEvent, getLikes, ip };
+export { submitEvent, getEvents, ip };

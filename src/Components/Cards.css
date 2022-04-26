@@ -1,6 +1,12 @@
 body {
     margin: 0;
-    /* overflow: hidden; */
+}
+
+/* Laptops and Desktops */
+@media (min-width: 1025px) {
+    body {
+        overflow: hidden;
+    }
 }
 
 #root {

@@ -1,4 +1,4 @@
-name: Publish Docker image and deploy
+name: Publish Docker image and deploy (both server & client)
 
 on:
     push:
@@ -43,7 +43,7 @@ jobs:
                   tags: ${{ steps.meta.outputs.tags }}
                   labels: ${{ steps.meta.outputs.labels }}
 
-    deploy:
+    deploy_server:
         needs: [push_to_registry]
         name: Deploy to Oracle
         runs-on: ubuntu-latest
@@ -77,3 +77,30 @@ jobs:
 
             - name: Start system
               run: ssh ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}} "cd swiper && sudo docker-compose up -d"
+
+    deploy_client:
+        name: Build and deploy React app
+        runs-on: ubuntu-latest
+        steps:
+            - name: Check out the repo
+              uses: actions/checkout@master
+
+            - name: Set up Node.js 16
+              uses: actions/setup-node@master
+              with:
+                  node-version: 16
+
+            - name: Install dependencies
+              run: npm install
+
+            - name: Build
+              run: npm run build
+
+            - name: Deploy
+              uses: garygrossgarten/github-action-scp@master
+              with:
+                  host: ${{ secrets.SSH_HOST }}
+                  username: ${{ secrets.SSH_USER }}
+                  privateKey: ${{ secrets.SSH_KEY }}
+                  local: "build"
+                  remote: "/var/www/html"
