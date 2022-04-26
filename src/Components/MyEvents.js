@@ -3,7 +3,7 @@ import Container from "@material-ui/core/Container";
 import { makeStyles } from "@material-ui/core/styles";
 import { ImageList, ImageListItem, ImageListItemBar } from "@material-ui/core";
 import useInfinite from "../hooks/useInfinite";
-import { getLikes } from "../utils/api";
+import { getEvents } from "../utils/api";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const MyLikes = () => {
+const MyLikes = ({ eventType }) => {
     const classes = useStyles();
 
     const [photos, setPhotos] = useState();
@@ -29,12 +29,12 @@ const MyLikes = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-            const photos = await getLikes();
+            const photos = await getEvents(eventType);
             setPhotos([...new Map(photos.map((item) => [item["photoUrl"], item])).values()]);
         };
 
         fetchData().catch(console.error);
-    }, []);
+    }, [eventType]);
 
     return (
         photos && (
