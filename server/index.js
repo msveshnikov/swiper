@@ -19,15 +19,6 @@ app.get("/", (req, res) => {
     res.json({ message: "Welcome to Swiper API." });
 });
 
-//get endpoint from mongodb query collection events
-app.get("/events", async (req, res) => {
-    try {
-        const events = await Event.find();
-        res.json(events);
-    } catch (err) {
-        onError(err, res);
-    }
-});
 
 /* This is a query to the mongodb database. */
 app.get("/agg", async (req, res) => {
@@ -35,15 +26,6 @@ app.get("/agg", async (req, res) => {
         const events = await Event.aggregate([
             { $group: { _id: { user: "$userId", event: "$eventType" }, count: { $sum: 1 } } },
         ]);
-        res.json(events);
-    } catch (err) {
-        onError(err, res);
-    }
-});
-
-app.get("/likes/:userId", async (req, res) => {
-    try {
-        const events = await Event.find({ user: req.params.userId, eventType: "like" });
         res.json(events);
     } catch (err) {
         onError(err, res);
