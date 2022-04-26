@@ -37,8 +37,11 @@ const submitEvent = async (url, type) => {
     });
 };
 
+
 /**
- * It fetches the likes from the API and returns the response as JSON.
+ * This function takes an eventType as a parameter, and returns a promise that resolves to a JSON
+ * object containing the events of that type.
+ * @param eventType - "like" or "save" or "share"
  * @returns An array of objects.
  */
 const getEvents = async (eventType) => {

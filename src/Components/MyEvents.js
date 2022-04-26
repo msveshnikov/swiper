@@ -13,15 +13,9 @@ const useStyles = makeStyles((theme) => ({
         overflow: "hidden",
         backgroundColor: theme.palette.background.paper,
     },
-    photo: {
-        cursor: "pointer",
-    },
-    icon: {
-        color: "rgba(255, 255, 255, 0.54)",
-    },
 }));
 
-const MyLikes = ({ eventType }) => {
+const MyEvents = ({ eventType }) => {
     const classes = useStyles();
 
     const [photos, setPhotos] = useState();
@@ -43,8 +37,9 @@ const MyLikes = ({ eventType }) => {
                     <ImageList rowHeight={250}>
                         {photos.slice(0, margin).map((p, index) => (
                             <ImageListItem cols={index % 5 ? 1 : 2} key={p.photoUrl.split("?")[0]}>
-                                <img className={classes.photo} src={p.photoUrl.split("?")[0] + "?h=350"} alt="RR" />
+                                <img className={classes.photo} src={p.photoUrl.split("?")[0] + "?h=400"} alt="RR" />
                                 <ImageListItemBar
+                                    style={{ height: 20 }}
                                     subtitle={<span>{new Date(p?.createdAt).toLocaleDateString()}</span>}
                                 />
                             </ImageListItem>
@@ -56,4 +51,4 @@ const MyLikes = ({ eventType }) => {
     );
 };
 
-export default MyLikes;
+export default MyEvents;
