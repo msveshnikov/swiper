@@ -12,6 +12,10 @@ const SideDrawer = ({ open, onDrawer }) => {
             <SwipeableDrawer
                 anchor="left"
                 open={open}
+                hysteresis={0.25}
+                minFlingVelocity={50}
+                swipeAreaWidth={50}
+                transitionDuration={30}
                 onClose={toggleDrawer(false)}
                 onOpen={toggleDrawer(true)}
             >

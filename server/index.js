@@ -15,11 +15,6 @@ app.use(
 );
 app.use(express.json());
 
-app.get("/", (req, res) => {
-    res.json({ message: "Welcome to Swiper API." });
-});
-
-
 /* This is a query to the mongodb database. */
 app.get("/agg", async (req, res) => {
     try {
