@@ -1,4 +1,4 @@
-const API_URL = "https://api.swiper.ml";
+const API_URL = "https://swiper.ml/api";
 
 /**
  * It fetches the IP address of the user and returns it
