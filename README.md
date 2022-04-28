@@ -24,11 +24,11 @@ Or:
 
 -   use GitHab Actions (create secrets)
 
-TODO:
+*TODO:*
 
 -   containerize Nginx
 
-Nginx config:
+*Nginx config:*
 
     server {
         server_name swiper.ml www.swiper.ml;
