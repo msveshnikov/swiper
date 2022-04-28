@@ -30,7 +30,8 @@ TODO:
 
 Nginx config:
 
-`server {
+`
+server {
 server_name swiper.ml www.swiper.ml;
 root /var/www/html;
 index index.html index.htm;
@@ -43,4 +44,5 @@ index index.html index.htm;
         try_files $uri $uri/ =404;
     }
 
-}`
+}
+`
