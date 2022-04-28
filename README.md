@@ -30,19 +30,18 @@ TODO:
 
 Nginx config:
 
-`
-server {
-server_name swiper.ml www.swiper.ml;
-root /var/www/html;
-index index.html index.htm;
+    server {
+        server_name swiper.ml www.swiper.ml;
+        root /var/www/html;
+        index index.html index.htm;
 
-    location /api/ {
-    proxy_pass	http://localhost:4000/;
+        location /api/ {
+        proxy_pass	http://localhost:4000/;
+        }
+
+        location / {
+            try_files $uri $uri/ =404;
+        }
+
     }
 
-    location / {
-        try_files $uri $uri/ =404;
-    }
-
-}
-`
