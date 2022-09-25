@@ -16,7 +16,7 @@
         "react-rewards": "^2.0.4",
         "react-router": "^6.3.0",
         "react-router-dom": "^6.3.0",
-        "react-tinder-card": "1.4.5",
+        "react-tinder-card": "1.5.4",
         "workbox-background-sync": "^6.5.4",
         "workbox-broadcast-update": "^6.5.4",
         "workbox-cacheable-response": "^6.5.4",
