@@ -103,4 +103,4 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           privateKey: ${{ secrets.SSH_KEY }}
           local: "build"
-          remote: "/var/www/html"
+          remote: "/var/www/swiper"
