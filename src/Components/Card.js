@@ -11,7 +11,7 @@ const Card = ({ url, onSwipe, onLeftScreen, card }) => {
     const [liked, setLiked] = useState(false);
 
     /* Removing the query string from the url, to Save, Share full image */
-    const cleanUrl = url.split("?")[0];
+    const cleanUrl = url; //?.split("?")[0];
 
     const { reward } = useReward("rewardId", "emoji", { zIndex: 10, lifetime: 70, startVelocity: 45, decay: 0.95 });
 

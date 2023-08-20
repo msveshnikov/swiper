@@ -1,20 +1,19 @@
 import { useState, useEffect, useRef } from "react";
 import "./Cards.css";
 import useScreenOrientation from "react-hook-screen-orientation";
-import {submitEvent} from "../utils/api";
 import Card from "./Card";
 import Keys from "./Keys";
 
 const Cards = () => {
     const [count, setCount] = useState(5);
     const [images, setImages] = useState([]);
+    const [pics, setPics] = useState([]);
     const [swiped, setSwiped] = useState([]);
     const orientation = useScreenOrientation();
     const topCard = useRef();
 
-    const onSwipe = (url, dir) => {
+    const onSwipe = (url) => {
         setSwiped((old) => [url, ...old]);
-        submitEvent(url.split("?")[0], "swipe " + dir);
         setCount((old) => old + 1);
     };
 
@@ -22,26 +21,39 @@ const Cards = () => {
         setImages((old) => old.filter((i) => i !== url));
     };
 
-    const fetchImage = (count, orientation) => {
-        const crop = orientation?.split("-")[0] === "landscape" ? "2000x900" : "900x2000";
-        fetch(`https://source.unsplash.com/random/${crop}?sig=${count}`).then((res) =>
-            setImages((old) => {
-                if (old.includes(res.url)) {
-                    // sometimes unsplash returns the same image
-                    setCount((old) => old + 1);
-                    return old;
-                }
-                return [res.url, ...old];
-            })
-        );
+    const fetchImage = () => {
+        if (pics.length === 0) return;
+        const res = pics[Math.floor(Math.random() * pics.length)];
+        setImages((old) => {
+            if (old.includes(res)) {
+                setCount((old) => old + 1);
+                return old;
+            }
+            return [res, ...old];
+        });
     };
 
     useEffect(() => {
-        for (var i = 0; i < 5; i++) {
-            fetchImage(i, orientation);
-        }
+        fetch(`https://mangatv.shop/api/stories`)
+            .then((res) => res.json())
+            .then((res) => {
+                setPics(
+                    res
+                        .filter((i) => i.vertical)
+                        .flatMap((i) => i.script)
+                        .flatMap((i) => i.image)
+                        .map((i) => "https://mangatv.shop/api" + i)
+                );
+            });
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
+    useEffect(() => {
+        for (var i = 0; i < 5; i++) {
+            fetchImage();
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [pics]);
 
     useEffect(() => {
         fetchImage(count, orientation);
@@ -54,7 +66,7 @@ const Cards = () => {
             <div className="cardContainer">
                 {images.map((url) => (
                     <Card
-                        key={url}  
+                        key={url}
                         url={url}
                         onSwipe={onSwipe}
                         onLeftScreen={onLeftScreen}
