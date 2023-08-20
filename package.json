@@ -5,8 +5,6 @@
     "dependencies": {
         "@material-ui/core": "^4.12.4",
         "@material-ui/icons": "^4.11.3",
-        "@sentry/react": "^7.13.0",
-        "@sentry/tracing": "^7.13.0",
         "@use-it/event-listener": "^0.1.7",
         "clsx": "^1.2.1",
         "js-file-download": "^0.4.12",
@@ -16,28 +14,14 @@
         "react-rewards": "^2.0.4",
         "react-router": "^6.4.1",
         "react-router-dom": "^6.4.1",
-        "react-tinder-card": "^1.5.4",
-        "workbox-background-sync": "^6.5.4",
-        "workbox-broadcast-update": "^6.5.4",
-        "workbox-cacheable-response": "^6.5.4",
-        "workbox-core": "^6.5.4",
-        "workbox-expiration": "^6.5.4",
-        "workbox-google-analytics": "^6.5.4",
-        "workbox-navigation-preload": "^6.5.4",
-        "workbox-precaching": "^6.5.4",
-        "workbox-range-requests": "^6.5.4",
-        "workbox-routing": "^6.5.4",
-        "workbox-strategies": "^6.5.4",
-        "workbox-streams": "^6.5.4"
+        "react-tinder-card": "^1.5.4"
     },
     "devDependencies": {
         "react-scripts": "^5.0.1"
     },
     "scripts": {
         "start": "react-scripts start",
-        "build": "react-scripts build",
-        "test": "react-scripts test",
-        "eject": "react-scripts eject"
+        "build": "react-scripts build"
     },
     "eslintConfig": {
         "extends": "react-app"

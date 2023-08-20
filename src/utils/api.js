@@ -22,19 +22,19 @@ let ip;
  * @param type - The type of event you want to track.
  */
 const submitEvent = async (url, type) => {
-    const event = {
-        photoUrl: url,
-        userId: ip,
-        eventType: type,
-    };
+    // const event = {
+    //     photoUrl: url,
+    //     userId: ip,
+    //     eventType: type,
+    // };
 
-    await fetch(API_URL + "/event", {
-        method: "POST",
-        body: JSON.stringify(event),
-        headers: {
-            "Content-Type": "application/json",
-        },
-    });
+    // await fetch(API_URL + "/event", {
+    //     method: "POST",
+    //     body: JSON.stringify(event),
+    //     headers: {
+    //         "Content-Type": "application/json",
+    //     },
+    // });
 };
 
 
