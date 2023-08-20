@@ -6,7 +6,6 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import { green } from "@material-ui/core/colors";
 import Fab from "@material-ui/core/Fab";
 import CheckIcon from "@material-ui/icons/Check";
-import { submitEvent } from "../utils/api";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -61,7 +60,6 @@ const Share = ({ url }) => {
             const file = await urlToFile(url);
             setSuccess(true);
             setLoading(false);
-            submitEvent(url, "share");
             if (navigator.canShare && navigator.canShare({ files: [file] })) {
                 navigator.share({
                     files: [file],

@@ -1,7 +1,5 @@
-import Layout from "./Layout/Layout";
 import Cards from "./Components/Cards";
 import { Route, Routes, BrowserRouter } from "react-router-dom";
-import MyEvents from "./Components/MyEvents";
 import { ThemeProvider, createTheme } from "@material-ui/core/styles";
 
 const theme = createTheme({
@@ -23,14 +21,9 @@ const App = () => {
     return (
         <ThemeProvider theme={theme}>
             <BrowserRouter>
-                <Layout>
-                    <Routes>
-                        <Route path="/likes" element={<MyEvents eventType="like" />} />
-                        <Route path="/saves" element={<MyEvents eventType="save" />} />
-                        <Route path="/shares" element={<MyEvents eventType="share" />} />
-                        <Route path="/" element={<Cards />} />
-                    </Routes>
-                </Layout>
+                <Routes>
+                    <Route path="/" element={<Cards />} />
+                </Routes>
             </BrowserRouter>
         </ThemeProvider>
     );

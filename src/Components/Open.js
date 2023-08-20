@@ -2,12 +2,11 @@ import { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import fileDownload from "js-file-download";
 import clsx from "clsx";
-import SaveIcon from "@material-ui/icons/Save";
+import PlayIcon from "@material-ui/icons/PlayCircleFilled";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { green } from "@material-ui/core/colors";
 import Fab from "@material-ui/core/Fab";
 import CheckIcon from "@material-ui/icons/Check";
-import { submitEvent } from "../utils/api";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -37,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const Save = ({ url }) => {
+const Open = ({ url }) => {
     const classes = useStyles();
     const [loading, setLoading] = useState(false);
     const [success, setSuccess] = useState(false);
@@ -54,7 +53,6 @@ const Save = ({ url }) => {
             const res = await response.blob();
             setSuccess(true);
             setLoading(false);
-            submitEvent(url, "save");
             fileDownload(res, `Swiper-${new Date().toISOString()}.jpeg`, "image/jpeg");
         }
     };
@@ -68,7 +66,7 @@ const Save = ({ url }) => {
                     onTouchEnd={handleSaveClick}
                     onClick={handleSaveClick}
                 >
-                    {success ? <CheckIcon /> : <SaveIcon />}
+                    {success ? <CheckIcon /> : <PlayIcon />}
                 </Fab>
                 {loading && <CircularProgress size={68} className={classes.fabProgress} />}
             </div>
@@ -76,4 +74,4 @@ const Save = ({ url }) => {
     );
 };
 
-export default Save;
+export default Open;
