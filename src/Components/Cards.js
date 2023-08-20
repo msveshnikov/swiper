@@ -3,6 +3,15 @@ import "./Cards.css";
 import Card from "./Card";
 import Keys from "./Keys";
 
+export const getVideo = async (url) => {
+    const res = await fetch(`https://mangatv.shop/api/stories?lang=ru_RU`);
+    const data = await res.json();
+    return (
+        "https://mangatv.shop/api" +
+        data.find((i) => i.script.filter((i) => "https://mangatv.shop/api" + i.image === url).length > 0).video
+    );
+};
+
 const Cards = () => {
     const [count, setCount] = useState(5);
     const [images, setImages] = useState([]);
