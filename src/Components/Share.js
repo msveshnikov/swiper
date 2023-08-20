@@ -6,6 +6,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import { green } from "@material-ui/core/colors";
 import Fab from "@material-ui/core/Fab";
 import CheckIcon from "@material-ui/icons/Check";
+import { getVideo } from "./Cards";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -44,12 +45,6 @@ const Share = ({ url }) => {
         [classes.buttonSuccess]: success,
     });
 
-    const urlToFile = async (url) => {
-        const response = await fetch(url);
-        const blob = await response.blob();
-        return new File([blob], `Swiper-${new Date().toISOString()}.jpeg`, { type: blob.type });
-    };
-
     const handleShareClick = async () => {
         if (!navigator.share) {
             return;
@@ -57,15 +52,14 @@ const Share = ({ url }) => {
         if (!loading) {
             setSuccess(false);
             setLoading(true);
-            const file = await urlToFile(url);
+            const video = await getVideo(url);
             setSuccess(true);
             setLoading(false);
-            if (navigator.canShare && navigator.canShare({ files: [file] })) {
+            if (navigator.canShare) {
                 navigator.share({
-                    files: [file],
-                    title: "Photo",
-                    text: "Check out this photo",
-                    url: "https://swiper.ml/",
+                    title: "Manga TV",
+                    text: "Check out this story",
+                    url: video,
                 });
             }
         }
