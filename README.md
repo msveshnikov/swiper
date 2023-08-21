@@ -4,7 +4,7 @@ Photo sliding app.
 Just swipe to next photo, or double tap to like :)
 
 Demo:
-https://swiper.ml/
+https://maxsoft-swiper.netlify.app/
 
 # Server setup (just for fun :)
 

@@ -4,12 +4,9 @@ import Card from "./Card";
 import Keys from "./Keys";
 
 export const getVideo = async (url) => {
-    const res = await fetch(`https://mangatv.shop/api/stories?lang=ru_RU`);
+    const res = await fetch(`https://mangatv.shop/api/images`);
     const data = await res.json();
-    return (
-        "https://mangatv.shop/api" +
-        data.find((i) => i.script.filter((i) => "https://mangatv.shop/api" + i.image === url).length > 0).video
-    );
+    return "https://mangatv.shop/api" + data.images.find((i) => "https://mangatv.shop/api" + i.image === url).video;
 };
 
 const Cards = () => {
@@ -37,16 +34,10 @@ const Cards = () => {
     };
 
     useEffect(() => {
-        fetch(`https://mangatv.shop/api/stories?lang=ru_RU`)
+        fetch(`https://mangatv.shop/api/images`)
             .then((res) => res.json())
             .then((res) => {
-                setPics(
-                    res
-                        .filter((i) => i.vertical)
-                        .flatMap((i) => i.script)
-                        .flatMap((i) => i.image)
-                        .map((i) => "https://mangatv.shop/api" + i)
-                );
+                setPics(res.images.map((i) => "https://mangatv.shop/api" + i.image));
             });
     }, []);
 
