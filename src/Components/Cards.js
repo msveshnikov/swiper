@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import "./Cards.css";
 import Card from "./Card";
 import Keys from "./Keys";
@@ -23,15 +23,11 @@ const Cards = () => {
         setImages((old) => old.filter((i) => i !== url));
     };
 
-    const fetchImage = () => {
-        if (pics.length === 0) {
-            return;
-        }
+    const fetchImage = useCallback(() => {
+        if (pics.length === 0) return;
         const res = pics[Math.floor(Math.random() * pics.length)];
-        setImages((old) => {
-            return [res, ...old];
-        });
-    };
+        setImages((old) => [res, ...old]);
+    }, [pics]);
 
     useEffect(() => {
         fetch(`https://mangatv.shop/api/images`)
@@ -45,13 +41,11 @@ const Cards = () => {
         for (var i = 0; i < 5; i++) {
             fetchImage();
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [pics]);
+    }, [pics, fetchImage]);
 
     useEffect(() => {
         fetchImage();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [count]);
+    }, [count, fetchImage]);
 
     return (
         <div>
