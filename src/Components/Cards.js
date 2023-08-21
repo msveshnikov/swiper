@@ -30,11 +30,12 @@ const Cards = () => {
     }, [pics]);
 
     useEffect(() => {
-        fetch(`https://mangatv.shop/api/images`)
-            .then((res) => res.json())
-            .then((res) => {
-                setPics(res.images.map((i) => "https://mangatv.shop/api" + i.image));
-            });
+        const fetchData = async () => {
+            const res = await fetch(`https://mangatv.shop/api/images`);
+            const data = await res.json();
+            setPics(data.images.map((i) => "https://mangatv.shop/api" + i.image));
+        };
+        fetchData();
     }, []);
 
     useEffect(() => {
